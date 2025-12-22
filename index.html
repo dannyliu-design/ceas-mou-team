@@ -20,6 +20,7 @@
       --status-pending-bg: #e8eaeb;
       --status-pending-text: #606266;
       
+      --link-blue: #006eb8;
       --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     }
 
@@ -33,13 +34,11 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Layout Structure */
     .workspace {
       display: flex;
       min-height: 100vh;
     }
 
-    /* Main Content Area */
     .content-container {
       flex: 1;
       max-width: 1000px;
@@ -51,27 +50,10 @@
       .content-container { padding: 30px 20px; }
     }
 
-    /* Header Styles */
-    header {
-      margin-bottom: 48px;
-    }
-
-    .breadcrumb {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-    }
-
+    /* Header */
+    header { margin-bottom: 48px; }
+    .breadcrumb { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
     .metadata {
       display: flex;
       gap: 24px;
@@ -80,6 +62,7 @@
       border-top: 1px solid var(--border-color);
       border-bottom: 1px solid var(--border-color);
       padding: 12px 0;
+      flex-wrap: wrap;
     }
 
     /* Grid System */
@@ -96,138 +79,80 @@
 
     /* Card & Block Styles */
     section { margin-bottom: 40px; }
-    
-    h2 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
 
     .notion-card {
       background: #fff;
       border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: 20px;
-      transition: background 0.2s ease;
     }
 
     /* Status Tags */
-    .badge {
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
+    .badge { padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; margin-right: 5px;}
     .badge.done { background: var(--status-done-bg); color: var(--status-done-text); }
     .badge.progress { background: var(--status-progress-bg); color: var(--status-progress-text); }
     .badge.pending { background: var(--status-pending-bg); color: var(--status-pending-text); }
 
+    /* Links */
+    a { color: inherit; text-decoration: none; }
+    .folder-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+      color: var(--link-blue);
+      margin-top: 8px;
+      padding: 4px 8px;
+      background: #f0f7ff;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    .folder-link:hover { background: #e0efff; text-decoration: underline; }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      transition: background 0.2s;
+    }
+    .sidebar-link:hover { background: var(--border-color); }
+
     /* Timeline Styling */
-    .timeline {
-      border-left: 2px solid var(--border-color);
-      margin-left: 10px;
-      padding-left: 24px;
-    }
-
-    .timeline-event {
-      position: relative;
-      margin-bottom: 24px;
-    }
-
+    .timeline { border-left: 2px solid var(--border-color); margin-left: 10px; padding-left: 24px; }
+    .timeline-event { position: relative; margin-bottom: 24px; }
     .timeline-event::before {
-      content: "";
-      position: absolute;
-      left: -31px;
-      top: 4px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #fff;
-      border: 2px solid var(--border-color);
+      content: ""; position: absolute; left: -31px; top: 4px; width: 12px; height: 12px;
+      border-radius: 50%; background: #fff; border: 2px solid var(--border-color);
     }
-
-    .timeline-event.active::before {
-      background: #f9a825;
-      border-color: #f9a825;
-    }
-
-    .timeline-event.completed::before {
-      background: #2e7d32;
-      border-color: #2e7d32;
-    }
+    .timeline-event.active::before { background: #f9a825; border-color: #f9a825; }
+    .timeline-event.completed::before { background: #2e7d32; border-color: #2e7d32; }
 
     /* Task Lists */
-    .task-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid #f5f5f5;
-    }
-
+    .task-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f5f5f5; }
     .task-row:last-child { border-bottom: none; }
-
-    .task-check {
-      margin-top: 4px;
-      accent-color: var(--text-main);
-    }
-
+    .task-check { margin-top: 4px; accent-color: var(--text-main); }
     .task-content strong { font-size: 0.95rem; display: block; }
-    .task-content span { font-size: 0.85rem; color: var(--text-secondary); }
+    .task-content span { font-size: 0.85rem; color: var(--text-secondary); display: block; }
 
-    /* Right Sidebar Table */
-    .status-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-    }
+    /* Tables */
+    .status-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .status-table th { text-align: left; color: var(--text-secondary); font-weight: 500; padding: 8px; border-bottom: 1px solid var(--border-color); }
+    .status-table td { padding: 10px 8px; border-bottom: 1px solid #f9f9f9; }
 
-    .status-table th {
-      text-align: left;
-      color: var(--text-secondary);
-      font-weight: 500;
-      padding: 8px;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .status-table td {
-      padding: 10px 8px;
-      border-bottom: 1px solid #f9f9f9;
-    }
-
-    /* Callout Block */
-    .callout {
-      background: var(--bg-side);
-      border-radius: 4px;
-      padding: 16px;
-      display: flex;
-      gap: 12px;
-      border: 1px solid var(--border-color);
-    }
-
+    /* Callout */
+    .callout { background: var(--bg-side); border-radius: 4px; padding: 16px; display: flex; gap: 12px; border: 1px solid var(--border-color); margin-bottom: 12px; }
     .callout-icon { font-size: 1.2rem; }
     .callout-text { font-size: 0.9rem; }
 
-    footer {
-      margin-top: 80px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      font-size: 0.8rem;
-      text-align: center;
-    }
+    footer { margin-top: 80px; padding-top: 20px; border-top: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.8rem; text-align: center; }
 
-    /* Sticky side for status on desktop */
-    .sticky-side {
-      position: sticky;
-      top: 40px;
-    }
-
+    .sticky-side { position: sticky; top: 40px; }
   </style>
 </head>
 <body>
@@ -243,7 +168,7 @@
         <div class="metadata">
           <div><strong>Coordinator:</strong> Te-En (Danny) Liu</div>
           <div><strong>Partner:</strong> CEAS × CCC College</div>
-          <div><strong>Last Updated:</strong> Dec 2025</div>
+          <div><strong>Last Updated:</strong> Dec 22, 2025</div>
         </div>
       </header>
 
@@ -268,10 +193,6 @@
                 <strong>Phase 3: Real-World Data Integration</strong>
                 <p style="font-size: 0.9rem; color: var(--text-secondary);">Replacing placeholders with verified CCC department curricula. <span class="badge progress">In Progress</span></p>
               </div>
-              <div class="timeline-event">
-                <strong>Phase 4: Official Stakeholder Finalization</strong>
-                <p style="font-size: 0.9rem; color: var(--text-secondary);">Apply Prof. JJ’s matchings (e.g., CYCU EECS ISE 3+2). <span class="badge pending">Pending</span></p>
-              </div>
             </div>
           </section>
 
@@ -282,61 +203,49 @@
               <div class="task-row">
                 <input type="checkbox" checked class="task-check">
                 <div class="task-content">
-                  <strong>Complete example file (a)</strong>
-                  <span>IME & Placeholder CCC department mapping.</span>
-                </div>
-              </div>
-              <div class="task-row">
-                <input type="checkbox" checked class="task-check">
-                <div class="task-content">
-                  <strong>Scale to all departments (b)</strong>
-                  <span>ME, EE, CS, BM, Civil, Materials folders initialized.</span>
+                  <strong>Complete expansion files (b)</strong>
+                  <span>All CEAS department folders initialized in Teams.</span>
                 </div>
               </div>
               <div class="task-row">
                 <input type="checkbox" class="task-check">
                 <div class="task-content">
                   <strong>Actual CCC Data Integration (c)</strong>
-                  <span>Replacing "XXX" placeholders with official curriculum names.</span>
+                  <span>Mapping specific course data for partner colleges.</span>
                 </div>
               </div>
             </div>
           </section>
 
-          <!-- SECTION: TENTATIVE LONG-TERM -->
+          <!-- SECTION: MOU & PROMOTION -->
           <section>
-            <h2><span style="font-size: 1.5rem;">📋</span> MOU & Program Support (JJ Tasks)</h2>
+            <h2><span style="font-size: 1.5rem;">📋</span> MOU & Program Support</h2>
             <div class="notion-card" style="border: none; padding: 0;">
               
               <div class="task-row">
                 <div class="task-content">
-                  <strong>#1 MOU Standardization</strong>
-                  <span>Compare (1+1, 2+2, 3+2) for KNU, GNU, UOS, etc. into one common template.</span>
                   <span class="badge pending">To Do</span>
+                  <strong>MOU Comparison & Common Template</strong>
+                  <span>Compare (1+1, 2+2, 3+2) MOUs for KNU, GNU, UOS, KSU, CGU, CYCU.</span>
+                  <a href="https://panthers.sharepoint.com/:f:/r/sites/CEASMOUTeamforTaiwaneseandKoreanStudents-Group/Shared%20Documents/General/(01)%20MOU?csf=1&web=1&e=9jhBaO" target="_blank" class="folder-link">📂 View (01) MOU Folder</a>
                 </div>
               </div>
 
               <div class="task-row">
                 <div class="task-content">
-                  <strong>#2 Graduate Course Catalog (G & 700)</strong>
-                  <span>Compile prerequisites, web URLs, and semester availability for partner schools.</span>
                   <span class="badge pending">To Do</span>
+                  <strong>CEAS Promotional Materials</strong>
+                  <span>Collect files from JJ, Lisa, and CIE for outreach.</span>
+                  <a href="https://panthers.sharepoint.com/:f:/r/sites/CEASMOUTeamforTaiwaneseandKoreanStudents-Group/Shared%20Documents/General/(08)%20UWM%20and%20CEAS%20promotional%20documents?csf=1&web=1&e=uRLp39" target="_blank" class="folder-link">📂 View (08) Promotion Folder</a>
                 </div>
               </div>
 
               <div class="task-row">
                 <div class="task-content">
-                  <strong>#3 CGU Promotional Script</strong>
-                  <span>Develop clear descriptions for CGU promotional video based on school web-styles.</span>
                   <span class="badge pending">To Do</span>
-                </div>
-              </div>
-
-              <div class="task-row">
-                <div class="task-content">
-                  <strong>#4 2+1 MOU Drafting</strong>
-                  <span>Coordinate with Dr. Gong to adapt 1+1 MOUs into a new 2+1 framework.</span>
-                  <span class="badge pending">To Do</span>
+                  <strong>Summer Program Organization</strong>
+                  <span>Gather and organize CEAS summer program descriptions.</span>
+                  <a href="https://panthers.sharepoint.com/:f:/r/sites/CEASMOUTeamforTaiwaneseandKoreanStudents-Group/Shared%20Documents/General/(09)%20UWM%20Summer%20Program%20Flyer?csf=1&web=1&e=sDMwFx" target="_blank" class="folder-link">📂 View (09) Summer Flyer Folder</a>
                 </div>
               </div>
 
@@ -349,7 +258,16 @@
           <div class="sticky-side">
             
             <section>
-              <h2>Tracking</h2>
+              <h2>Quick Links</h2>
+              <div class="notion-card" style="padding: 10px;">
+                <a href="https://panthers.sharepoint.com/:f:/r/sites/CEASMOUTeamforTaiwaneseandKoreanStudents-Group/Shared%20Documents/General/(01)%20MOU?csf=1&web=1&e=9jhBaO" target="_blank" class="sidebar-link">📄 (01) MOU Documents</a>
+                <a href="https://panthers.sharepoint.com/:f:/r/sites/CEASMOUTeamforTaiwaneseandKoreanStudents-Group/Shared%20Documents/General/(08)%20UWM%20and%20CEAS%20promotional%20documents?csf=1&web=1&e=uRLp39" target="_blank" class="sidebar-link">📢 (08) Promotion Docs</a>
+                <a href="https://panthers.sharepoint.com/:f:/r/sites/CEASMOUTeamforTaiwaneseandKoreanStudents-Group/Shared%20Documents/General/(09)%20UWM%20Summer%20Program%20Flyer?csf=1&web=1&e=sDMwFx" target="_blank" class="sidebar-link">☀️ (09) Summer Programs</a>
+              </div>
+            </section>
+
+            <section>
+              <h2>Mapping Status</h2>
               <div class="notion-card">
                 <table class="status-table">
                   <thead>
@@ -372,15 +290,8 @@
               <div class="callout">
                 <div class="callout-icon">💡</div>
                 <div class="callout-text">
-                  <strong>Team Drive:</strong><br>
-                  Check <code>02 Curriculum</code> folder for latest CSV exports.
-                </div>
-              </div>
-              <div class="callout" style="margin-top: 12px;">
-                <div class="callout-icon">🔗</div>
-                <div class="callout-text">
-                  <strong>Example:</strong><br>
-                  CEAS IME → CYCU EECS ISE (3+2)
+                  <strong>Files:</strong><br>
+                  All curriculum maps are located in <code>02 Curriculum</code> folder.
                 </div>
               </div>
             </section>
@@ -391,7 +302,7 @@
       </div> <!-- End Grid -->
 
       <footer>
-        Documentation Project · Te-En (Danny) Liu · 2025
+        International Programs Portfolio · Te-En (Danny) Liu · 2025
       </footer>
     </div>
   </div>

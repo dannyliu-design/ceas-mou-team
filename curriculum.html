@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,22 +23,35 @@
         body { font-family: var(--font-stack); background: var(--bg-main); color: var(--text-main); line-height: 1.5; display: flex; }
 
         /* Navigation */
-        nav.top-nav {
-            position: fixed; top: 0; left: 0; right: 0; height: 50px;
-            background: var(--bg-side); border-bottom: 1px solid var(--border-color);
-            display: flex; align-items: center; padding: 0 20px; gap: 20px; z-index: 100;
-        }
-        nav.top-nav a { text-decoration: none; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; }
-        nav.top-nav a.active { color: var(--text-main); font-weight: 600; }
+nav{
+  background: var(--bg-side);
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 40px;
+  display: flex;
+  gap: 24px;
+  font-size: 0.9rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+nav a{ text-decoration: none; color: var(--text-secondary); font-weight: 500; }
+nav a.active{ color: var(--text-main); font-weight: 600; border-bottom: 2px solid var(--text-main); }
+nav a:hover{ color: var(--text-main); }
+
 
         /* Sidebar for Jump Links */
-        .sidebar {
-            width: 240px; height: 100vh; background: var(--bg-side);
-            position: fixed; top: 50px; left: 0; padding: 20px;
-            border-right: 1px solid var(--border-color);
-        }
-        .sidebar h4 { font-size: 0.75rem; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 15px; letter-spacing: 0.05em; }
-        .sidebar a { display: block; padding: 6px 0; color: var(--text-main); text-decoration: none; font-size: 0.9rem; transition: 0.2s; }
+    .sidebar {
+      width: 240px;
+      height: 100vh;
+      background: var(--bg-side);
+      position: fixed;
+      top: 0;               /* was 50px */
+      left: 0;
+      padding: 20px;
+      border-right: 1px solid var(--border-color);
+    }
+         h4 { font-size: 0.75rem; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 15px; letter-spacing: 0.05em; }
+         a { display: block; padding: 6px 0; color: var(--text-main); text-decoration: none; font-size: 0.9rem; transition: 0.2s; }
         .sidebar a:hover { color: var(--notion-blue); }
 
         /* Main Content */
@@ -73,8 +87,13 @@
         .desc { color: var(--text-secondary); line-height: 1.4; max-width: 400px; }
 
         @media (max-width: 900px) {
-            .sidebar { display: none; }
-            .main-content { margin-left: 0; padding: 20px; }
+          .sidebar {
+            display: none;
+          }
+          .main-content {
+            margin-left: 0;
+            padding: 20px;
+          }
         }
     </style>
 </head>
@@ -589,3 +608,4 @@
 </body>
 
 </html>
+

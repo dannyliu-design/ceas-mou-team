@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,107 +12,210 @@
             --text-secondary: #757574;
             --border-color: #edeef0;
             --notion-blue: #006eb8;
-            --tag-undergrad: #e2f6d3; /* Green */
-            --tag-ug-grad: #fff4ce;    /* Yellow */
-            --tag-grad: #e1f0ff;       /* Blue */
+            --tag-undergrad: #e2f6d3;
+            --tag-ug-grad: #fff4ce;
+            --tag-grad: #e1f0ff;
             --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            --sidebar-width: 260px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: var(--font-stack); background: var(--bg-main); color: var(--text-main); line-height: 1.5; display: flex; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: var(--font-stack); 
+            background: var(--bg-main); 
+            color: var(--text-main); 
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+        }
 
-        /* Navigation */
-nav{
-  background: var(--bg-side);
-  border-bottom: 1px solid var(--border-color);
-  padding: 12px 40px;
-  display: flex;
-  gap: 24px;
-  font-size: 0.9rem;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-nav a{ text-decoration: none; color: var(--text-secondary); font-weight: 500; }
-nav a.active{ color: var(--text-main); font-weight: 600; border-bottom: 2px solid var(--text-main); }
-nav a:hover{ color: var(--text-main); }
+        /* Top Navigation */
+        nav.top-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 20px;
+            display: flex;
+            gap: 20px;
+            height: 50px;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav.top-nav a { 
+            text-decoration: none; 
+            color: var(--text-secondary); 
+            font-size: 0.85rem; 
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        nav.top-nav a.active { color: var(--text-main); font-weight: 600; }
+        nav.top-nav a:hover { color: var(--notion-blue); }
 
+        /* Sidebar Navigation */
+        .layout-container {
+            display: flex;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-        /* Sidebar for Jump Links */
-    .sidebar {
-      width: 240px;
-      height: 100vh;
-      background: var(--bg-side);
-      position: fixed;
-      top: 0;               /* was 50px */
-      left: 0;
-      padding: 20px;
-      border-right: 1px solid var(--border-color);
-    }
-         h4 { font-size: 0.75rem; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 15px; letter-spacing: 0.05em; }
-         a { display: block; padding: 6px 0; color: var(--text-main); text-decoration: none; font-size: 0.9rem; transition: 0.2s; }
-        .sidebar a:hover { color: var(--notion-blue); }
+        .sidebar {
+            width: var(--sidebar-width);
+            height: calc(100vh - 50px);
+            background: var(--bg-side);
+            position: sticky;
+            top: 50px;
+            padding: 40px 24px;
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+        }
+
+        .sidebar h4 { 
+            font-size: 0.7rem; 
+            text-transform: uppercase; 
+            color: var(--text-secondary); 
+            margin-bottom: 12px; 
+            letter-spacing: 0.08em; 
+        }
+
+        .sidebar a { 
+            display: block; 
+            padding: 8px 10px; 
+            color: var(--text-main); 
+            text-decoration: none; 
+            font-size: 0.9rem; 
+            border-radius: 6px;
+            transition: 0.2s;
+            margin-bottom: 2px;
+        }
+        .sidebar a:hover { background: #efefed; color: var(--notion-blue); }
 
         /* Main Content */
-        .main-content { margin-left: 240px; margin-top: 50px; width: 100%; max-width: 1000px; padding: 60px 40px; }
-
-        h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.02em; }
-        .intro-text { color: var(--text-secondary); margin-bottom: 40px; }
-
-        /* Toggle Section (Details/Summary) */
-        details { border-bottom: 1px solid var(--border-color); padding: 10px 0; }
-        summary { 
-            list-style: none; cursor: pointer; font-size: 1.2rem; font-weight: 600; 
-            padding: 10px; border-radius: 6px; display: flex; align-items: center; 
+        .main-content { 
+            flex: 1;
+            padding: 60px 40px; 
+            max-width: calc(100% - var(--sidebar-width));
         }
-        summary:hover { background: #f7f6f3; }
-        summary::before { content: "▶"; font-size: 0.7rem; margin-right: 12px; color: var(--text-secondary); transition: 0.2s; }
-        details[open] summary::before { transform: rotate(90deg); }
 
-        /* Table Styling */
-        .course-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.85rem; }
-        .course-table th { text-align: left; padding: 12px 8px; border-bottom: 1px solid var(--border-color); color: var(--text-secondary); font-weight: 500; }
-        .course-table td { padding: 12px 8px; border-bottom: 1px solid #f9f9f9; vertical-align: top; }
+        header { margin-bottom: 40px; }
+        h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.03em; }
+        .intro-text { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; }
+
+        /* Department Section Styling */
+        details { margin-bottom: 10px; border-radius: 8px; transition: background 0.2s; }
+        summary { 
+            list-style: none; cursor: pointer; font-size: 1.3rem; font-weight: 700; 
+            padding: 15px; border-radius: 8px; display: flex; align-items: center;
+            border: 1px solid transparent;
+        }
+        summary:hover { background: var(--bg-side); border-color: var(--border-color); }
+        summary::before { 
+            content: "▶"; font-size: 0.7rem; margin-right: 12px; 
+            color: var(--text-secondary); transition: 0.2s; 
+        }
+        details[open] summary::before { transform: rotate(90deg); }
+        details[open] { margin-bottom: 40px; }
+
+        /* Table Responsiveness Fix */
+        .table-container {
+            width: 100%;
+            overflow-x: auto; /* Allows horizontal swipe on mobile */
+            margin-top: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .course-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            font-size: 0.85rem; 
+            min-width: 700px; /* Ensures table doesn't squish too much */
+        }
+        .course-table th { 
+            background: var(--bg-side);
+            text-align: left; 
+            padding: 12px 15px; 
+            border-bottom: 1px solid var(--border-color); 
+            color: var(--text-secondary); 
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        .course-table td { padding: 14px 15px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
         
-        .code { font-family: monospace; font-weight: 600; color: var(--text-main); white-space: nowrap; }
-        .credits { font-weight: 600; text-align: center; }
+        .code { font-family: 'SFMono-Regular', Consolas, monospace; font-weight: 700; color: var(--notion-blue); white-space: nowrap; }
+        .credits { font-weight: 600; color: var(--text-main); }
         
-        /* Badges */
-        .badge { padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; white-space: nowrap; }
+        .badge { padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; white-space: nowrap; }
         .badge-ug { background: var(--tag-undergrad); color: #2b593f; }
         .badge-ugg { background: var(--tag-ug-grad); color: #815e21; }
         .badge-g { background: var(--tag-grad); color: #004a87; }
 
-        .desc { color: var(--text-secondary); line-height: 1.4; max-width: 400px; }
+        .desc { color: var(--text-secondary); line-height: 1.5; font-size: 0.85rem; }
 
+        footer { margin-top: 80px; padding: 40px 0; border-top: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.8rem; }
+
+        /* MOBILE RESPONSIVENESS */
         @media (max-width: 900px) {
-          .sidebar {
-            display: none;
-          }
-          .main-content {
-            margin-left: 0;
-            padding: 20px;
-          }
+            .layout-container { flex-direction: column; }
+            .sidebar {
+                position: relative;
+                top: 0;
+                width: 100%;
+                height: auto;
+                padding: 15px 20px;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                display: flex;
+                flex-direction: column;
+            }
+            .sidebar h4 { margin-bottom: 8px; }
+            .sidebar-links {
+                display: flex;
+                overflow-x: auto;
+                gap: 8px;
+                padding-bottom: 10px;
+                -webkit-overflow-scrolling: touch;
+            }
+            .sidebar a {
+                white-space: nowrap;
+                background: #fff;
+                border: 1px solid var(--border-color);
+                padding: 6px 12px;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 30px 20px;
+                max-width: 100%;
+            }
+            h1 { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
 
-<nav>
-  <a href="index.html">🏠 Project Dashboard</a>
-  <a href="curriculum.html" class="active">📚 Curriculum Reference</a>
-  <a href="resources.html">✨ Student Resources</a>
+<nav class="top-nav">
+  <a href="#">🏠 Project Dashboard</a>
+  <a href="#" class="active">📚 Curriculum Reference</a>
+  <a href="#">✨ Student Resources</a>
 </nav>
 
+<div class="layout-container">
     <aside class="sidebar">
-        <h4>Departments</h4>
-        <a href="#matleng">Materials (MATLENG)</a>
-        <a href="#civeng">Civil (CIV ENG)</a>
-        <a href="#bme">Biomedical (BME)</a>
-        <a href="#compsci">Computer Science</a>
-        <a href="#eleceng">Electrical Eng</a>
-        <a href="#mecheng">Mechanical Eng</a>
-        <a href="#indeng">Industrial Eng</a>
+        <h4>Jump to Department</h4>
+        <div class="sidebar-links">
+            <a href="#matleng">Materials</a>
+            <a href="#civeng">Civil Eng</a>
+            <a href="#bme">Biomedical</a>
+            <a href="#compsci">Computer Sci</a>
+            <a href="#eleceng">Electrical</a>
+            <a href="#mecheng">Mechanical</a>
+            <a href="#indeng">Industrial</a>
+        </div>
     </aside>
 
     <main class="main-content">
@@ -125,10 +227,11 @@ nav a:hover{ color: var(--text-main); }
         <!-- 1. MATERIALS -->
         <details id="matleng" open>
             <summary>Materials Science & Engineering (MATLENG)</summary>
-            <table class="course-table">
-                <thead>
-                    <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description (Summary)</th></tr>
-                </thead>
+            <div class="table-container">
+                <table class="course-table">
+                    <thead>
+                        <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description</th></tr>
+                    </thead>
 <tbody>
   <tr><td class="code">MATLENG 201</td><td>Introduction to Materials Science</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Structure, properties, and processing of metals, ceramics, and polymers.</td></tr>
   <tr><td class="code">MATLENG 330</td><td>Materials and Processes in Mfg</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Casting, forming, machining, and welding of engineering materials.</td></tr>
@@ -174,19 +277,19 @@ nav a:hover{ color: var(--text-main); }
   <tr><td class="code">MATLENG 998</td><td>Doctoral Thesis</td><td class="credits">12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Dissertation research for PhD candidates in Materials Engineering.</td></tr>
   <tr><td class="code">MATLENG 999</td><td>Advanced Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Specialized graduate research under faculty supervision.</td></tr>
 </tbody>
-
-            </table>
+                </table>
+            </div>
         </details>
 
         <!-- 2. CIVIL -->
         <details id="civeng">
             <summary>Civil & Environmental Engineering (CIV ENG)</summary>
-            <table class="course-table">
-                <thead>
-                    <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description (Summary)</th></tr>
-                </thead>
-    <tbody>
-  <tr><td class="code">CIV ENG 150</td><td>Builders for Civilization &amp; Env</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Role of civil engineering in society and infrastructure.</td></tr>
+            <div class="table-container">
+                <table class="course-table">
+                    <thead>
+                        <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description</th></tr>
+                    </thead>
+ <tr><td class="code">CIV ENG 150</td><td>Builders for Civilization &amp; Env</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Role of civil engineering in society and infrastructure.</td></tr>
   <tr><td class="code">CIV ENG 202</td><td>Dynamics</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Motion of particles and rigid bodies, work-energy, and impulse-momentum.</td></tr>
   <tr><td class="code">CIV ENG 203</td><td>Introduction to Solid Mechanics</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Statics and strength of materials, vector mechanics, and beam bending.</td></tr>
   <tr><td class="code">CIV ENG 250</td><td>Engineering Surveying</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Horizontal/vertical distance, angles, coordinate systems, and land records.</td></tr>
@@ -246,18 +349,21 @@ nav a:hover{ color: var(--text-main); }
   <tr><td class="code">CIV ENG 998</td><td>Doctoral Thesis</td><td class="credits">12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Dissertation research for PhD candidates in Civil Engineering.</td></tr>
   <tr><td class="code">CIV ENG 999</td><td>Advanced Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Specialized research under faculty supervision.</td></tr>
 </tbody>
-
-            </table>
+                </table>
+            </div>
         </details>
 
-        <!-- 3. BIOMEDICAL -->
-        <details id="bme">
-            <summary>Biomedical Engineering (BME)</summary>
-            <table class="course-table">
-                <thead>
-                    <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description (Summary)</th></tr>
-                </thead>
-  <tbody>
+
+               <!-- 3.BME (Sampled) -->
+<details id="bme">
+  <summary>Biomedical Engineering (BME)</summary>
+
+  <div class="table-container">
+    <table class="course-table">
+      <thead>
+        <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description</th></tr>
+      </thead>
+ <tbody>
   <tr><td class="code">BME 101</td><td>Fundamentals of Biomedical Engineering</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">System approach to physiology, cell transport, cardiovascular system, and signal processing.</td></tr>
   <tr><td class="code">BME 296</td><td>Fundamentals of Biomaterials</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Ceramics, metals, polymers, biological responses, and tissue engineering. Lab included.</td></tr>
   <tr><td class="code">BME 301</td><td>Fundamentals of Biomaterials</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Structure and properties of biomaterials and biological responses to implants.</td></tr>
@@ -298,17 +404,27 @@ nav a:hover{ color: var(--text-main); }
   <tr><td class="code">BME 998</td><td>Doctoral Thesis</td><td class="credits">12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Dissertation research for PhD candidates in Biomedical Engineering.</td></tr>
   <tr><td class="code">BME 999</td><td>Advanced Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Advanced research project under graduate faculty supervision.</td></tr>
 </tbody>
+    </table>
+  </div>
+</details>
 
-            </table>
-        </details>
 
-        <!-- 4. COMPUTER SCIENCE -->
+
+
+
+
+
+
+
+        
+        <!-- 4. COMPUTER SCIENCE (Sampled) -->
         <details id="compsci">
             <summary>Computer Science (COMPSCI)</summary>
-            <table class="course-table">
-                <thead>
-                    <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description (Summary)</th></tr>
-                </thead>
+            <div class="table-container">
+                <table class="course-table">
+                    <thead>
+                        <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description</th></tr>
+                    </thead>
 <tbody>
   <tr><td class="code">COMPSCI 101</td><td>Intro to PC Application Software</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Word processing, spreadsheets, and databases for non-majors.</td></tr>
   <tr><td class="code">COMPSCI 111</td><td>Introduction to Unix</td><td class="credits">1</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Basic user commands, file systems, and text editing in Unix.</td></tr>
@@ -388,19 +504,21 @@ nav a:hover{ color: var(--text-main); }
   <tr><td class="code">COMPSCI 998</td><td>Doctoral Thesis</td><td class="credits">12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Dissertation research for PhD candidates.</td></tr>
   <tr><td class="code">COMPSCI 999</td><td>Advanced Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Specialized research under faculty direction.</td></tr>
 </tbody>
-
-            </table>
+                </table>
+            </div>
         </details>
 
-        <!-- 5. ELECTRICAL -->
-        <details id="eleceng">
-            <summary>Electrical Engineering (ELECENG)</summary>
-            <table class="course-table">
+        <!--Electricl Engineering -->
+         
+            <details id="eleceng">
+            <summary>Electrical Engineering (ELEC ENG)</summary>
+
+            <div class="table-container">
+                <table class="course-table">
                 <thead>
-                    <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description (Summary)</th></tr>
+                    <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description</th></tr>
                 </thead>
-                <tbody>
-                    <tbody>
+<tbody>
                     <tr><td class="code">ELECENG 101</td><td>Fundamentals of Electrical Eng</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Basic quantities, circuit analysis, lab experiments, and test equipment.</td></tr>
                     <tr><td class="code">ELECENG 140</td><td>Intro to Embedded Computing I</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Foundations of computing, bits, gates, and a module on Matlab.</td></tr>
                     <tr><td class="code">ELECENG 150</td><td>Electronic Tech in the World</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Satellites, digital communication, radar, microwaves, and lasers.</td></tr>
@@ -455,17 +573,22 @@ nav a:hover{ color: var(--text-main); }
                     <tr><td class="code">ELECENG 999</td><td>Advanced Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Specialized study under faculty direction.</td></tr>
 
                 </tbody>
-            </table>
-        </details>
+                </table>
+            </div>
+            </details>
 
-        <!-- 6. MECHANICAL -->
-        <details id="mecheng">
-            <summary>Mechanical Engineering (MECHENG)</summary>
-            <table class="course-table">
+        <!--Mechanical Engineering -->
+            <details id="mecheng">
+            <summary>Mechanical Engineering (MECH ENG)</summary>
+
+            <div class="table-container">
+                <table class="course-table">
                 <thead>
-                    <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description (Summary)</th></tr>
+                    <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description</th></tr>
                 </thead>
-                <tbody>
+
+
+                        <tbody>
 
                 <tr><td class="code">MECHENG 101</td><td>Computational Tools for Engineers</td><td class="credits">2</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Introduction to spreadsheets and equation solvers for engineering.</td></tr>
                 <tr><td class="code">MECHENG 110</td><td>Engineering Fundamentals I</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Problem-solving, visualization, technical communication, and data analysis.</td></tr>
@@ -529,17 +652,23 @@ nav a:hover{ color: var(--text-main); }
 
 
                 </tbody>
-            </table>
-        </details>
+                    </table>
+  </div>
+</details>
 
-        <!-- 7. INDUSTRIAL -->
-        <details id="indeng">
-            <summary>Industrial & Manufacturing Engineering (IND ENG)</summary>
-            <table class="course-table">
-                <thead>
-                    <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description (Summary)</th></tr>
-                </thead>
-                <tbody>
+
+
+
+        <!--Industrial Engineering -->
+<details id="indeng">
+  <summary>Industrial & Manufacturing Engineering (IND ENG)</summary>
+
+  <div class="table-container">
+    <table class="course-table">
+      <thead>
+        <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description</th></tr>
+      </thead>
+ <tbody>
 
                 <tr><td class="code">IND ENG 111</td><td>Introduction to Engineering</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Problem-solving methods, teamwork, technical communication, and ethics.</td></tr>
                 <tr><td class="code">IND ENG 112</td><td>Computer-Aided Design</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Visualization, engineering drawing, CAD, and group projects.</td></tr>
@@ -597,15 +726,23 @@ nav a:hover{ color: var(--text-main); }
                 <tr><td class="code">IND ENG 999</td><td>Advanced Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Advanced graduate research under supervision.</td></tr>
 
                 </tbody>
-            </table>
-        </details>
+    </table>
+  </div>
+</details>
+
+
+
+
+
+        <p style="text-align: center; color: var(--text-secondary); margin-top: 20px; font-size: 0.9rem;">
+            <em>... Additional departments follow same format ...</em>
+        </p>
 
         <footer>
-            <p>© 2025 CEAS International Mapping Project. Data sourced from department catalog images.</p>
+            <p>© 2025 CEAS International Mapping Project. Data sourced from official department catalogs.</p>
         </footer>
     </main>
+</div>
 
 </body>
-
 </html>
-

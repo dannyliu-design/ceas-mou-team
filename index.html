@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Curriculum Mapping | Project Workspace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-main: #ffffff;
+      --bg-side: #fbfbfa;
+      --text-main: #37352f;
+      --text-secondary: #757574;
+      --border-color: #e9e9e8;
+      --status-done-bg: #e2f6d3;
+      --status-done-text: #2b593f;
+      --status-progress-bg: #fff4ce;
+      --status-progress-text: #815e21;
+      --status-pending-bg: #e8eaeb;
+      --status-pending-text: #606266;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-stack); background: var(--bg-main); color: var(--text-main); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    
+    /* Navigation Bar */
+    nav {
+      background: var(--bg-side);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 40px;
+      display: flex;
+      gap: 24px;
+      font-size: 0.9rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav a { text-decoration: none; color: var(--text-secondary); font-weight: 500; }
+    nav a.active { color: var(--text-main); font-weight: 600; border-bottom: 2px solid var(--text-main); }
+    nav a:hover { color: var(--text-main); }
+
+    .content-container { flex: 1; max-width: 1000px; margin: 0 auto; padding: 40px 40px; }
+    header { margin-bottom: 48px; }
+    .breadcrumb { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 8px; }
+    h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .metadata { display: flex; gap: 24px; font-size: 0.9rem; color: var(--text-secondary); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 12px 0; }
+    
+    .dashboard-grid { display: grid; grid-template-columns: 2fr 1.2fr; gap: 40px; margin-top: 32px; }
+    @media (max-width: 850px) { .dashboard-grid { grid-template-columns: 1fr; } .content-container { padding: 20px; } }
+
+    section { margin-bottom: 40px; }
+    h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .notion-card { background: #fff; border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+    
+    .badge { padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 4px; display: inline-block; }
+    .badge.done { background: var(--status-done-bg); color: var(--status-done-text); }
+    .badge.progress { background: var(--status-progress-bg); color: var(--status-progress-text); }
+    .badge.pending { background: var(--status-pending-bg); color: var(--status-pending-text); }
+
+    .timeline { border-left: 2px solid var(--border-color); margin-left: 10px; padding-left: 24px; }
+    .timeline-event { position: relative; margin-bottom: 24px; }
+    .timeline-event::before { content: ""; position: absolute; left: -31px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 2px solid var(--border-color); }
+    .timeline-event.completed::before { background: #2e7d32; border-color: #2e7d32; }
+    .timeline-event.active::before { background: #f9a825; border-color: #f9a825; }
+
+    .task-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f5f5f5; }
+    .task-row:last-child { border-bottom: none; }
+    .task-content strong { font-size: 0.95rem; display: block; }
+    .task-content span { font-size: 0.85rem; color: var(--text-secondary); }
+
+    .status-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .status-table th { text-align: left; padding: 8px; border-bottom: 1px solid var(--border-color); color: var(--text-secondary); font-weight: 500; }
+    .status-table td { padding: 10px 8px; border-bottom: 1px solid #f9f9f9; }
+
+    .callout { background: var(--bg-side); border-radius: 4px; padding: 16px; border: 1px solid var(--border-color); margin-bottom: 12px; display: flex; gap: 12px; }
+    .callout a { color: #006eb8; text-decoration: none; font-weight: 500; }
+    .callout a:hover { text-decoration: underline; }
+    
+    footer { margin-top: 80px; padding-top: 20px; border-top: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.8rem; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="active">🏠 Project Dashboard</a>
+    <a href="curriculum.html">📚 Curriculum Reference</a>
+    <a href="resources.html">✨ Student Resources</a>
+  </nav>
+
+  <div class="content-container">
+    <header>
+      <div class="breadcrumb">📁 General / 🌏 International Programs</div>
+      <h1>Project Roadmap & Tracking</h1>
+      <div class="metadata">
+        <div><strong>Coordinator:</strong> Te-En (Danny) Liu</div>
+        <div><strong>Partner:</strong> CEAS × International Schools</div>
+        <div><strong>Updated:</strong> Dec 22, 2025</div>
+      </div>
+    </header>
+
+    <div class="dashboard-grid">
+      <div class="main-column">
+        
+        <!-- SECTION: ROADMAP -->
+        <section>
+          <h2>📅 Implementation Roadmap</h2>
+          <div class="timeline">
+            <div class="timeline-event completed">
+              <strong>Phase 1: Infrastructure</strong>
+              <p style="font-size: 0.9rem; color: var(--text-secondary);">Build portfolio website to track and update progress. <span class="badge done">Completed</span></p>
+            </div>
+            <div class="timeline-event completed">
+              <strong>Phase 2: Internal Mapping</strong>
+              <p style="font-size: 0.9rem; color: var(--text-secondary);">Complete UWM CEAS full curriculum mapping. <span class="badge done">Completed</span></p>
+            </div>
+            <div class="timeline-event completed">
+              <strong>Phase 3: Partner School Audits</strong>
+              <p style="font-size: 0.9rem; color: var(--text-secondary);">Complete CYCU IME & CGU curriculum audits. <span class="badge done">Completed</span></p>
+            </div>
+            <div class="timeline-event completed">
+              <strong>Phase 4: Program Asset Gathering</strong>
+              <p style="font-size: 0.9rem; color: var(--text-secondary);">Complete promotion program materials collection. <span class="badge done">Completed</span></p>
+            </div>
+            <div class="timeline-event active">
+              <strong>Phase 5: Matching & Comparisons</strong>
+              <p style="font-size: 0.9rem; color: var(--text-secondary);">School/Dept matching and MOU structure comparison. <span class="badge progress">In Progress</span></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION: TAIWAN -->
+        <section>
+          <h2>🇹🇼 Taiwanese Partner Tasks</h2>
+          <div class="notion-card">
+            <div class="task-row">
+              <div class="task-content">
+                <span class="badge done">Done</span>
+                <strong>CYCU IME Curriculum</strong>
+                <span>Audit and documentation of Chung Yuan Christian University IME department.</span>
+              </div>
+            </div>
+            <div class="task-row">
+              <div class="task-content">
+                <span class="badge done">Done</span>
+                <strong>CGU Curriculum</strong>
+                <span>Full course extraction for Chang Gung University.</span>
+              </div>
+            </div>
+            <div class="task-row">
+              <div class="task-content">
+                <span class="badge progress">In Progress</span>
+                <strong>Department Matching</strong>
+                <span>Aligning CYCU/CGU departments with UWM CEAS majors.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION: KOREA -->
+        <section>
+          <h2>🇰🇷 Korean Partner Tasks</h2>
+          <div class="notion-card">
+            <div class="task-row">
+              <div class="task-content">
+                <span class="badge progress">In Progress</span>
+                <strong>MOU Comparison</strong>
+                <span>Compare (1+1, 2+2, 3+2) for KNU, GNU, UOS, KSU.</span>
+              </div>
+            </div>
+            <div class="task-row">
+              <div class="task-content">
+                <span class="badge done">Done</span>
+                <strong>Promotion Materials</strong>
+                <span>Collected CEAS assets from JJ, Lisa, and CIE.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="sidebar-column">
+        <!-- SECTION: SHARED LINKS -->
+        <section>
+          <h2>🔗 Quick Access</h2>
+          <div class="callout">
+            <div>📄</div>
+            <div><a href="https://panthers.sharepoint.com/:f:/r/sites/CEASMOUTeamforTaiwaneseandKoreanStudents-Group/Shared%20Documents/General/(01)%20MOU?csf=1&web=1&e=9jhBaO" target="_blank">MOU Documents</a></div>
+          </div>
+          <div class="callout">
+            <div>📢</div>
+            <div><a href="https://panthers.sharepoint.com/:f:/r/sites/CEASMOUTeamforTaiwaneseandKoreanStudents-Group/Shared%20Documents/General/(08)%20UWM%20and%20CEAS%20promotional%20documents?csf=1&web=1&e=uRLp39" target="_blank">Promotion Docs</a></div>
+          </div>
+          <div class="callout">
+            <div>☀️</div>
+            <div><a href="https://panthers.sharepoint.com/:f:/r/sites/CEASMOUTeamforTaiwaneseandKoreanStudents-Group/Shared%20Documents/General/(09)%20UWM%20Summer%20Program%20Flyer?csf=1&web=1&e=sDMwFx" target="_blank">Summer Flyers</a></div>
+          </div>
+        </section>
+
+        <!-- SECTION: DEPARTMENT STATUS -->
+        <section>
+          <h2>Mapping Status</h2>
+          <div class="notion-card">
+            <table class="status-table">
+              <thead><tr><th>CEAS Dept.</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>IME</td><td>🟢 Completed</td></tr>
+                <tr><td>ME</td><td>🟢 Completed</td></tr>
+                <tr><td>EE</td><td>🟢 Completed</td></tr>
+                <tr><td>CS</td><td>🟢 Completed</td></tr>
+                <tr><td>BM</td><td>🟢 Completed</td></tr>
+                <tr><td>Civil</td><td>🟢 Completed</td></tr>
+                <tr><td>Materials</td><td>🟢 Completed</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <footer>International Programs Portfolio · Te-En (Danny) Liu · 2025</footer>
+  </div>
+</body>
+</html>

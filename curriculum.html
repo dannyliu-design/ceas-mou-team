@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Curriculum Reference Database | CEAS Mapping</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-side: #fbfbfa;
+            --text-main: #37352f;
+            --text-secondary: #757574;
+            --border-color: #edeef0;
+            --notion-blue: #006eb8;
+            --tag-undergrad: #e2f6d3; /* Green */
+            --tag-ug-grad: #fff4ce;    /* Yellow */
+            --tag-grad: #e1f0ff;       /* Blue */
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-stack); background: var(--bg-main); color: var(--text-main); line-height: 1.5; display: flex; }
+
+        /* Navigation */
+        nav.top-nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 50px;
+            background: var(--bg-side); border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; padding: 0 20px; gap: 20px; z-index: 100;
+        }
+        nav.top-nav a { text-decoration: none; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; }
+        nav.top-nav a.active { color: var(--text-main); font-weight: 600; }
+
+        /* Sidebar for Jump Links */
+        .sidebar {
+            width: 240px; height: 100vh; background: var(--bg-side);
+            position: fixed; top: 50px; left: 0; padding: 20px;
+            border-right: 1px solid var(--border-color);
+        }
+        .sidebar h4 { font-size: 0.75rem; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 15px; letter-spacing: 0.05em; }
+        .sidebar a { display: block; padding: 6px 0; color: var(--text-main); text-decoration: none; font-size: 0.9rem; transition: 0.2s; }
+        .sidebar a:hover { color: var(--notion-blue); }
+
+        /* Main Content */
+        .main-content { margin-left: 240px; margin-top: 50px; width: 100%; max-width: 1000px; padding: 60px 40px; }
+
+        h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.02em; }
+        .intro-text { color: var(--text-secondary); margin-bottom: 40px; }
+
+        /* Toggle Section (Details/Summary) */
+        details { border-bottom: 1px solid var(--border-color); padding: 10px 0; }
+        summary { 
+            list-style: none; cursor: pointer; font-size: 1.2rem; font-weight: 600; 
+            padding: 10px; border-radius: 6px; display: flex; align-items: center; 
+        }
+        summary:hover { background: #f7f6f3; }
+        summary::before { content: "▶"; font-size: 0.7rem; margin-right: 12px; color: var(--text-secondary); transition: 0.2s; }
+        details[open] summary::before { transform: rotate(90deg); }
+
+        /* Table Styling */
+        .course-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.85rem; }
+        .course-table th { text-align: left; padding: 12px 8px; border-bottom: 1px solid var(--border-color); color: var(--text-secondary); font-weight: 500; }
+        .course-table td { padding: 12px 8px; border-bottom: 1px solid #f9f9f9; vertical-align: top; }
+        
+        .code { font-family: monospace; font-weight: 600; color: var(--text-main); white-space: nowrap; }
+        .credits { font-weight: 600; text-align: center; }
+        
+        /* Badges */
+        .badge { padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; white-space: nowrap; }
+        .badge-ug { background: var(--tag-undergrad); color: #2b593f; }
+        .badge-ugg { background: var(--tag-ug-grad); color: #815e21; }
+        .badge-g { background: var(--tag-grad); color: #004a87; }
+
+        .desc { color: var(--text-secondary); line-height: 1.4; max-width: 400px; }
+
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <a href="index.html">🏠 Dashboard</a>
+        <a href="curriculum.html" class="active">📚 Curriculum Database</a>
+    </nav>
+
+    <aside class="sidebar">
+        <h4>Departments</h4>
+        <a href="#matleng">Materials (MATLENG)</a>
+        <a href="#civeng">Civil (CIV ENG)</a>
+        <a href="#bme">Biomedical (BME)</a>
+        <a href="#compsci">Computer Science</a>
+        <a href="#eleceng">Electrical Eng</a>
+        <a href="#mecheng">Mechanical Eng</a>
+        <a href="#indeng">Industrial Eng</a>
+    </aside>
+
+    <main class="main-content">
+        <header>
+            <h1>Curriculum Reference</h1>
+            <p class="intro-text">Standardized course database extracted from CEAS department records for international MOU mapping.</p>
+        </header>
+
+        <!-- 1. MATERIALS -->
+        <details id="matleng" open>
+            <summary>Materials Science & Engineering (MATLENG)</summary>
+            <table class="course-table">
+                <thead>
+                    <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description (Summary)</th></tr>
+                </thead>
+<tbody>
+  <tr><td class="code">MATLENG 201</td><td>Introduction to Materials Science</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Structure, properties, and processing of metals, ceramics, and polymers.</td></tr>
+  <tr><td class="code">MATLENG 330</td><td>Materials and Processes in Mfg</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Casting, forming, machining, and welding of engineering materials.</td></tr>
+
+  <tr><td class="code">MATLENG 402/G</td><td>Physical Metallurgy</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Crystal structures, defects, diffusion, and phase transformations in metals.</td></tr>
+  <tr><td class="code">MATLENG 410/G</td><td>Mechanical Behavior of Materials</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Elasticity, plasticity, fracture, fatigue, and creep of materials.</td></tr>
+  <tr><td class="code">MATLENG 442/G</td><td>Thermodynamics of Materials</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Laws of thermodynamics applied to phase equilibria and chemical reactions.</td></tr>
+  <tr><td class="code">MATLENG 443/G</td><td>Transport Phenomena in Materials</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Momentum, heat, and mass transfer in materials processing.</td></tr>
+  <tr><td class="code">MATLENG 451/G</td><td>Ceramic and Glass Materials</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Structure, properties, and processing of ceramics and glasses.</td></tr>
+
+  <!-- Excel date fix -->
+  <tr><td class="code">MATLENG 455/G</td><td>Engineering Polymers</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Polymer chemistry, physics, and mechanical behavior.</td></tr>
+  <tr><td class="code">MATLENG 460/G</td><td>Nanomaterials &amp; Nanomanufacturing</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Synthesis and characterization of nanoparticles and nanocomposites.</td></tr>
+
+  <tr><td class="code">MATLENG 461/G</td><td>Corrosion Engineering</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Electrochemical principles of corrosion and methods of prevention.</td></tr>
+  <tr><td class="code">MATLENG 465/G</td><td>Friction and Wear</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Tribology, surface interactions, and wear mechanisms.</td></tr>
+  <tr><td class="code">MATLENG 471/G</td><td>Heat Treatment of Steels</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Hardening, tempering, and annealing of carbon and alloy steels.</td></tr>
+  <tr><td class="code">MATLENG 481/G</td><td>Electronic Materials</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Semiconductors, dielectric, magnetic, and optical properties.</td></tr>
+
+  <!-- Excel date fix -->
+  <tr><td class="code">MATLENG 483/G</td><td>Introduction to Energy Materials</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Materials for batteries, fuel cells, solar cells, and supercapacitors.</td></tr>
+
+  <!-- Serial date fix -->
+  <tr><td class="code">MATLENG 490/G</td><td>Topics in Materials Engineering</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Theoretical and applied topics of current interest.</td></tr>
+
+  <tr><td class="code">MATLENG 496</td><td>Senior Design Project</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Capstone design involving material selection and process design.</td></tr>
+  <tr><td class="code">MATLENG 511/G</td><td>Characterization of Materials</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">XRD, SEM, TEM, and other analytical techniques for materials.</td></tr>
+  <tr><td class="code">MATLENG 585/G</td><td>Advanced Biomaterials</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Materials for medical implants, drug delivery, and tissue engineering.</td></tr>
+
+  <!-- Serial date fix -->
+  <tr><td class="code">MATLENG 699/G</td><td>Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Faculty-supervised independent research or project work.</td></tr>
+
+  <tr><td class="code">MATLENG 702</td><td>Advanced Physical Metallurgy</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Advanced phase transformations and microstructural evolution.</td></tr>
+  <tr><td class="code">MATLENG 710</td><td>Advanced Mechanical Behavior</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Dislocation theory, toughening mechanisms, and high-temperature behavior.</td></tr>
+  <tr><td class="code">MATLENG 720</td><td>Kinetic Processes in Materials</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Atomic diffusion, interface migration, and solidification kinetics.</td></tr>
+  <tr><td class="code">MATLENG 740</td><td>Heterogeneous Equilibria</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Binary and ternary phase diagrams and thermodynamic modeling.</td></tr>
+
+  <!-- Serial date fix -->
+  <tr><td class="code">MATLENG 890</td><td>Advanced Topics in Materials</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Recent theoretical and applied developments in materials science.</td></tr>
+
+  <!-- Thesis credits -->
+  <tr><td class="code">MATLENG 990</td><td>Masters Thesis</td><td class="credits">9–12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Thesis research for Master of Science in Materials Engineering.</td></tr>
+  <tr><td class="code">MATLENG 998</td><td>Doctoral Thesis</td><td class="credits">12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Dissertation research for PhD candidates in Materials Engineering.</td></tr>
+  <tr><td class="code">MATLENG 999</td><td>Advanced Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Specialized graduate research under faculty supervision.</td></tr>
+</tbody>
+
+            </table>
+        </details>
+
+        <!-- 2. CIVIL -->
+        <details id="civeng">
+            <summary>Civil & Environmental Engineering (CIV ENG)</summary>
+            <table class="course-table">
+                <thead>
+                    <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description (Summary)</th></tr>
+                </thead>
+    <tbody>
+  <tr><td class="code">CIV ENG 150</td><td>Builders for Civilization &amp; Env</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Role of civil engineering in society and infrastructure.</td></tr>
+  <tr><td class="code">CIV ENG 202</td><td>Dynamics</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Motion of particles and rigid bodies, work-energy, and impulse-momentum.</td></tr>
+  <tr><td class="code">CIV ENG 203</td><td>Introduction to Solid Mechanics</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Statics and strength of materials, vector mechanics, and beam bending.</td></tr>
+  <tr><td class="code">CIV ENG 250</td><td>Engineering Surveying</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Horizontal/vertical distance, angles, coordinate systems, and land records.</td></tr>
+  <tr><td class="code">CIV ENG 280</td><td>Computer Based Engineering Analysis</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Statistical significance, database systems, and relationship interpretation.</td></tr>
+  <tr><td class="code">CIV ENG 303</td><td>Strength of Materials</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Stress/strain, torsion, beam bending, and principal stresses.</td></tr>
+  <tr><td class="code">CIV ENG 311</td><td>Intro to Energy, Env &amp; Sustainability</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Energy resources, environmental impact, and sustainable practices.</td></tr>
+
+  <!-- Excel date fix -->
+  <tr><td class="code">CIV ENG 335</td><td>Soil Mechanics</td><td class="credits">1–3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Physical properties of soils, seepage, consolidation, and shear strength.</td></tr>
+  <tr><td class="code">CIV ENG 360</td><td>Introduction to Structural Analysis</td><td class="credits">1–3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Analysis of statically determinate and indeterminate beams and frames.</td></tr>
+
+  <tr><td class="code">CIV ENG 372</td><td>Introduction to Structural Design</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Design of steel and concrete members using LRFD and ASD methods.</td></tr>
+
+  <tr><td class="code">CIV ENG 401/G</td><td>Intermediate Strength of Materials</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Advanced stress analysis, curved beams, and thick-walled cylinders.</td></tr>
+  <tr><td class="code">CIV ENG 411</td><td>Principles of Water Resources Design</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Hydrology, hydraulics, and design of water distribution systems.</td></tr>
+  <tr><td class="code">CIV ENG 412/G</td><td>Applied Hydrology</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Occurrence and movement of water, rainfall-runoff, and groundwater.</td></tr>
+
+  <!-- Excel date fix -->
+  <tr><td class="code">CIV ENG 413</td><td>Environmental Engineering</td><td class="credits">1–3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Water/wastewater treatment, air pollution, and solid waste management.</td></tr>
+
+  <tr><td class="code">CIV ENG 431/G</td><td>Materials of Construction</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Properties and behavior of concrete, steel, wood, and masonry.</td></tr>
+  <tr><td class="code">CIV ENG 456/G</td><td>Foundation Engineering</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Bearing capacity, settlement, and design of shallow/deep foundations.</td></tr>
+  <tr><td class="code">CIV ENG 463/G</td><td>Introduction to Finite Elements</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Finite element matrices for solid mechanics and heat transfer.</td></tr>
+  <tr><td class="code">CIV ENG 466/G</td><td>Design of Composite Structures</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Analysis and manufacturing of fiber reinforced plastic structures.</td></tr>
+
+  <tr><td class="code">CIV ENG 480</td><td>Software Applications in Civil Eng</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Use of industry-standard software for civil engineering design.</td></tr>
+  <tr><td class="code">CIV ENG 490</td><td>Transportation Engineering</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Highway design, traffic flow, and transportation planning.</td></tr>
+
+  <tr><td class="code">CIV ENG 492/G</td><td>Env Impact Assessment</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Laws, regulations, and methodologies for assessing environmental impacts.</td></tr>
+  <tr><td class="code">CIV ENG 494</td><td>Principles of Civil Engineering Design</td><td class="credits">1</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Design project management, ethics, and professional practice.</td></tr>
+  <tr><td class="code">CIV ENG 495</td><td>Senior Design</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Capstone design project in a simulated professional environment.</td></tr>
+
+  <tr><td class="code">CIV ENG 560/G</td><td>Intermediate Structural Analysis</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Matrix methods, stiffness, and flexibility for complex structures.</td></tr>
+  <tr><td class="code">CIV ENG 571/G</td><td>Design of Concrete Structures</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Reinforced concrete beams, slabs, columns, and footings.</td></tr>
+  <tr><td class="code">CIV ENG 572/G</td><td>Design of Steel Structures</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Steel beams, columns, connections, and plate girders.</td></tr>
+  <tr><td class="code">CIV ENG 573/G</td><td>Design of Masonry &amp; Wood Structures</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Design of wood and masonry members and systems.</td></tr>
+  <tr><td class="code">CIV ENG 574/G</td><td>Design of Prestressed Concrete</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Analysis and design of prestressed and post-tensioned concrete.</td></tr>
+  <tr><td class="code">CIV ENG 579/G</td><td>Earthquake Engineering</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Seismology, ground motion, and seismic design of structures.</td></tr>
+  <tr><td class="code">CIV ENG 590/G</td><td>Urban Transportation Planning</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Travel demand modeling and urban transport policy analysis.</td></tr>
+
+  <!-- Excel date fix -->
+  <tr><td class="code">CIV ENG 592/G</td><td>Traffic Control</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Traffic signals, signs, markings, and traffic operations analysis.</td></tr>
+
+  <tr><td class="code">CIV ENG 596/G</td><td>Transportation Facilities Design</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Geometric design of highways, intersections, and interchanges.</td></tr>
+
+  <!-- Excel date fix -->
+  <tr><td class="code">CIV ENG 598/G</td><td>Pavement Analysis and Design</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Flexible and rigid pavement design and management.</td></tr>
+  <tr><td class="code">CIV ENG 610/G</td><td>Water and Sewage Treatment</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Physical, chemical, and biological processes in treatment.</td></tr>
+
+  <tr><td class="code">CIV ENG 614/G</td><td>Hazardous Waste Management</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Regulation, storage, and remediation of hazardous materials.</td></tr>
+
+  <tr><td class="code">CIV ENG 701</td><td>Effective Academic Writing</td><td class="credits">1</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Technical writing for engineering research and publications.</td></tr>
+  <tr><td class="code">CIV ENG 888</td><td>Candidate for Degree</td><td class="credits">0</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Final enrollment requirement for graduation.</td></tr>
+
+  <!-- Thesis credit fixes -->
+  <tr><td class="code">CIV ENG 990</td><td>Masters Thesis</td><td class="credits">9–12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Original research for the Master of Science in Civil Engineering.</td></tr>
+  <tr><td class="code">CIV ENG 998</td><td>Doctoral Thesis</td><td class="credits">12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Dissertation research for PhD candidates in Civil Engineering.</td></tr>
+  <tr><td class="code">CIV ENG 999</td><td>Advanced Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Specialized research under faculty supervision.</td></tr>
+</tbody>
+
+            </table>
+        </details>
+
+        <!-- 3. BIOMEDICAL -->
+        <details id="bme">
+            <summary>Biomedical Engineering (BME)</summary>
+            <table class="course-table">
+                <thead>
+                    <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description (Summary)</th></tr>
+                </thead>
+  <tbody>
+  <tr><td class="code">BME 101</td><td>Fundamentals of Biomedical Engineering</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">System approach to physiology, cell transport, cardiovascular system, and signal processing.</td></tr>
+  <tr><td class="code">BME 296</td><td>Fundamentals of Biomaterials</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Ceramics, metals, polymers, biological responses, and tissue engineering. Lab included.</td></tr>
+  <tr><td class="code">BME 301</td><td>Fundamentals of Biomaterials</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Structure and properties of biomaterials and biological responses to implants.</td></tr>
+  <tr><td class="code">BME 302</td><td>Analysis and Modeling of Dynamic Systems</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Modeling mechanical, electrical, fluid, and physiological systems. Lab included.</td></tr>
+  <tr><td class="code">BME 305</td><td>Introduction to Engineering Biomechanics</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Biomechanics principles applied to the musculoskeletal system and human movement.</td></tr>
+  <tr><td class="code">BME 306</td><td>Introduction to Engineering Biomechanics</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Musculoskeletal biomechanics with lab experiments for human movement analysis.</td></tr>
+  <tr><td class="code">BME 310</td><td>Biomedical Signals and Systems</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Principles of biosignals (ECG, EMG, EEG) and time-domain analysis.</td></tr>
+
+  <!-- Excel date fix -->
+  <tr><td class="code">BME 320</td><td>Engineering of Biomedical Devices I</td><td class="credits">1–4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Biomechatronic systems, sensors, actuators, and hearing implants. Lab included.</td></tr>
+  <tr><td class="code">BME 325</td><td>Engineering of Biomedical Devices II</td><td class="credits">1–3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Feedback and control systems, prostheses, and respiratory aids.</td></tr>
+
+  <tr><td class="code">BME 437/G</td><td>Introduction to Biomedical Imaging</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">X-ray, CT, image reconstruction, ultrasound, and MRI principles.</td></tr>
+  <tr><td class="code">BME 439/G</td><td>Introduction to Biomedical Optics</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Light transport in tissue, spectroscopy, microscopy, and laser-tissue interaction.</td></tr>
+
+  <tr><td class="code">BME 495</td><td>Biomedical Instrumentation Laboratory</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Sensor calibration, measurement systems, and data acquisition processing.</td></tr>
+  <tr><td class="code">BME 585/G</td><td>Advanced Biomaterials</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Applications in cardiovascular devices, drug delivery, and tissue engineering.</td></tr>
+
+  <!-- Excel date fix -->
+  <tr><td class="code">BME 595</td><td>Capstone Design Project</td><td class="credits">1–4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Team-based project planning, design, and testing in a real-world environment.</td></tr>
+
+  <!-- Serial date fix -->
+  <tr><td class="code">BME 599</td><td>Senior Thesis</td><td class="credits">1–3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Independent research and written thesis under faculty direction.</td></tr>
+
+  <tr><td class="code">BME 690/G</td><td>Topics in Biomedical Engineering</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Recent theoretical and applied developments in biomedical engineering.</td></tr>
+
+  <!-- Serial date fix -->
+  <tr><td class="code">BME 699/G</td><td>Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Student-developed study plan on a specific BME topic with faculty advisor.</td></tr>
+
+  <tr><td class="code">BME 720</td><td>Machine Perception</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Computer vision, virtual/augmented reality, and behavior analysis.</td></tr>
+  <tr><td class="code">BME 733</td><td>Sensors and Systems</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Physical principles of sensors, interfacing, and sensor networks.</td></tr>
+
+  <tr><td class="code">BME 888</td><td>Candidates for Degree</td><td class="credits">0</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Minimum credit load requirement for graduate students.</td></tr>
+  <tr><td class="code">BME 890</td><td>Special Topics</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Advanced graduate-level lectures on specialized BME topics.</td></tr>
+
+  <!-- Thesis credit fixes -->
+  <tr><td class="code">BME 990</td><td>Masters Thesis</td><td class="credits">9–12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Original research for the completion of a Master's degree.</td></tr>
+  <tr><td class="code">BME 998</td><td>Doctoral Thesis</td><td class="credits">12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Dissertation research for PhD candidates in Biomedical Engineering.</td></tr>
+  <tr><td class="code">BME 999</td><td>Advanced Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Advanced research project under graduate faculty supervision.</td></tr>
+</tbody>
+
+            </table>
+        </details>
+
+        <!-- 4. COMPUTER SCIENCE -->
+        <details id="compsci">
+            <summary>Computer Science (COMPSCI)</summary>
+            <table class="course-table">
+                <thead>
+                    <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description (Summary)</th></tr>
+                </thead>
+<tbody>
+  <tr><td class="code">COMPSCI 101</td><td>Intro to PC Application Software</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Word processing, spreadsheets, and databases for non-majors.</td></tr>
+  <tr><td class="code">COMPSCI 111</td><td>Introduction to Unix</td><td class="credits">1</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Basic user commands, file systems, and text editing in Unix.</td></tr>
+  <tr><td class="code">COMPSCI 112</td><td>Intro to Internet and WWW</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Survey of HTTP, TCP/IP, security, and protocols.</td></tr>
+  <tr><td class="code">COMPSCI 113</td><td>Intro to Web Document Production</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Web design principles and languages (HTML/CSS).</td></tr>
+  <tr><td class="code">COMPSCI 132</td><td>Intro to Computers &amp; Programming</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Basic hardware concepts and high-level programming.</td></tr>
+  <tr><td class="code">COMPSCI 140</td><td>Intro to CS Laboratories</td><td class="credits">1</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Tools available in the CS laboratory environment.</td></tr>
+  <tr><td class="code">COMPSCI 150</td><td>Survey of Computer Science</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Algorithms, AI, data structures, and operating systems.</td></tr>
+
+  <!-- Excel date fix -->
+  <tr><td class="code">COMPSCI 151</td><td>Scientific Programming in Fortran</td><td class="credits">1–3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Implementation of programs for science and engineering.</td></tr>
+  <tr><td class="code">COMPSCI 160</td><td>Intro to Game Design &amp; Programming</td><td class="credits">1–3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Game history and concepts using GameMaker or similar.</td></tr>
+
+  <tr><td class="code">COMPSCI 202</td><td>Intro Programming Using Python</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Python basics, recursion, library data types, and objects.</td></tr>
+  <tr><td class="code">COMPSCI 240</td><td>Intro to Engineering Programming</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Structured programming using MATLAB for engineers.</td></tr>
+  <tr><td class="code">COMPSCI 241</td><td>C Programming for Embedded Systems</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Memory management, pointers, and I/O in C.</td></tr>
+  <tr><td class="code">COMPSCI 250</td><td>Introductory Computer Programming</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Object-oriented programming using Java or C++.</td></tr>
+
+  <!-- Excel date fix -->
+  <tr><td class="code">COMPSCI 251</td><td>Intermediate Computer Programming</td><td class="credits">1–4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Writing classes, standard data structures, and debugging.</td></tr>
+
+  <tr><td class="code">COMPSCI 315</td><td>Computer Org &amp; Assembly Language</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Digital computer organization and machine language.</td></tr>
+  <tr><td class="code">COMPSCI 317</td><td>Discrete Information Structures</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Logic, sets, functions, probability, and graphs.</td></tr>
+  <tr><td class="code">COMPSCI 318</td><td>Topics in Discrete Mathematics</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Number theory for cryptography and counting techniques.</td></tr>
+  <tr><td class="code">COMPSCI 337</td><td>System Programming</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Application programmer interface (API) and memory management.</td></tr>
+  <tr><td class="code">COMPSCI 351</td><td>Data Structures and Algorithms</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Stacks, queues, trees, and searching/sorting.</td></tr>
+  <tr><td class="code">COMPSCI 361</td><td>Introduction to Software Engineering</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Requirements, design, and software lifecycle.</td></tr>
+
+  <tr><td class="code">COMPSCI 431</td><td>Programming Languages Concepts</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Abstraction, types, and language design paradigms.</td></tr>
+  <tr><td class="code">COMPSCI 458</td><td>Computer Architecture</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Hardware design, instruction sets, and CPU performance.</td></tr>
+  <tr><td class="code">COMPSCI 459</td><td>Fundamentals of Computer Graphics</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">2D/3D rendering, shading, and graphical interfaces.</td></tr>
+  <tr><td class="code">COMPSCI 469</td><td>Intro to Computer Security</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Cryptography, network security, and access control.</td></tr>
+  <tr><td class="code">COMPSCI 481</td><td>Server-side Web Development</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Database-driven web apps using PHP, Ruby, or similar.</td></tr>
+  <tr><td class="code">COMPSCI 482</td><td>Rich Internet Applications</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Client-side JavaScript and the DOM.</td></tr>
+
+  <tr><td class="code">COMPSCI 511/G</td><td>Symbolic Logic</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Mathematical logic, completeness, and computability.</td></tr>
+  <tr><td class="code">COMPSCI 520/G</td><td>Computer Networks</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Layered architecture, routing, protocols, and security.</td></tr>
+  <tr><td class="code">COMPSCI 522/G</td><td>Computer Game Design</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Rule design, AI in games, and metrics.</td></tr>
+  <tr><td class="code">COMPSCI 535/G</td><td>Algorithm Design and Analysis</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Complexity, greedy methods, and dynamic programming.</td></tr>
+
+  <!-- Excel date fixes -->
+  <tr><td class="code">COMPSCI 537/G</td><td>Introduction to Operating Systems</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Process management, memory, and file systems.</td></tr>
+  <tr><td class="code">COMPSCI 547/G</td><td>User Interface Design &amp; Impl.</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Human factors, design, and UI implementation.</td></tr>
+  <tr><td class="code">COMPSCI 557/G</td><td>Introduction to Database Systems</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Relational models, SQL, and database management.</td></tr>
+  <tr><td class="code">COMPSCI 581/G</td><td>Introduction to Artificial Intelligence</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Search, knowledge representation, and machine learning.</td></tr>
+
+  <tr><td class="code">COMPSCI 595</td><td>Capstone Project</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Integration of knowledge via a significant team project.</td></tr>
+
+  <tr><td class="code">COMPSCI 654</td><td>Introduction to Compilers</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Syntax analysis, semantic routines, and code generation.</td></tr>
+  <tr><td class="code">COMPSCI 655/G</td><td>Compiler Implementation Laboratory</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Hands-on scanner, parser, and optimizer implementation.</td></tr>
+
+  <!-- Topics / independent study -->
+  <tr><td class="code">COMPSCI 657/G</td><td>Topics in Computer Science</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Lectures on recent advances in computer science.</td></tr>
+  <tr><td class="code">COMPSCI 699/G</td><td>Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Faculty-supervised independent research.</td></tr>
+
+  <tr><td class="code">COMPSCI 700</td><td>CEAS Graduate Seminar</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Ethics, professional communication, and safety.</td></tr>
+
+  <tr><td class="code">COMPSCI 755</td><td>Information and Coding Theory</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Source coding, channel capacity, and error correction.</td></tr>
+  <tr><td class="code">COMPSCI 757</td><td>Data Base Org &amp; File Structure</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Information retrieval and retrieval system evaluation.</td></tr>
+  <tr><td class="code">COMPSCI 758</td><td>Advanced Computer Architecture</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Pipeline, parallel systems, and VLSI structures.</td></tr>
+  <tr><td class="code">COMPSCI 759</td><td>Data Security</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Cryptography, database protection, and OS security.</td></tr>
+
+  <!-- Excel date fixes -->
+  <tr><td class="code">COMPSCI 760</td><td>Systems Performance Evaluation</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Markov models, queueing theory, and benchmarks.</td></tr>
+  <tr><td class="code">COMPSCI 761</td><td>Software Testing and Verification</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Test generation, regression testing, and security testing.</td></tr>
+  <tr><td class="code">COMPSCI 790</td><td>Advanced Topics in Computer Science</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Theoretical or applied areas in graduate computer science.</td></tr>
+  <tr><td class="code">COMPSCI 810</td><td>Knowledge Representation</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Representing knowledge in formal computational systems.</td></tr>
+
+  <tr><td class="code">COMPSCI 811</td><td>Advanced Machine Learning</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Deep learning, neural networks, and Markov models.</td></tr>
+  <tr><td class="code">COMPSCI 854</td><td>Advanced Compiler Techniques</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Attribute grammars and advanced optimization.</td></tr>
+  <tr><td class="code">COMPSCI 859</td><td>Advanced Cryptography</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Elliptic curves, zero knowledge proofs, and protocols.</td></tr>
+
+  <tr><td class="code">COMPSCI 888</td><td>Candidate for Degree</td><td class="credits">0</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Minimum credit load requirement for graduation.</td></tr>
+
+  <!-- Thesis credits -->
+  <tr><td class="code">COMPSCI 990</td><td>Masters Thesis</td><td class="credits">9–12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Research for the completion of a Master&apos;s degree.</td></tr>
+  <tr><td class="code">COMPSCI 998</td><td>Doctoral Thesis</td><td class="credits">12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Dissertation research for PhD candidates.</td></tr>
+  <tr><td class="code">COMPSCI 999</td><td>Advanced Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Specialized research under faculty direction.</td></tr>
+</tbody>
+
+            </table>
+        </details>
+
+        <!-- 5. ELECTRICAL -->
+        <details id="eleceng">
+            <summary>Electrical Engineering (ELECENG)</summary>
+            <table class="course-table">
+                <thead>
+                    <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description (Summary)</th></tr>
+                </thead>
+                <tbody>
+                    <tbody>
+                    <tr><td class="code">ELECENG 101</td><td>Fundamentals of Electrical Eng</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Basic quantities, circuit analysis, lab experiments, and test equipment.</td></tr>
+                    <tr><td class="code">ELECENG 140</td><td>Intro to Embedded Computing I</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Foundations of computing, bits, gates, and a module on Matlab.</td></tr>
+                    <tr><td class="code">ELECENG 150</td><td>Electronic Tech in the World</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Satellites, digital communication, radar, microwaves, and lasers.</td></tr>
+                    <tr><td class="code">ELECENG 201</td><td>Foundations of Electrical Eng</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Background of EE, basic laws, and recent electrical technologies.</td></tr>
+                    <tr><td class="code">ELECENG 234</td><td>Analytical Methods in Engineering</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">ODEs, linear algebra, complex numbers, and transform techniques.</td></tr>
+                    <tr><td class="code">ELECENG 240</td><td>Intro to Embedded Computing II</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">C programming for embedded apps, pointers, and memory management.</td></tr>
+
+                    <!-- Excel date fix: 45660 is usually a variable-credit range like 1–3 -->
+                    <tr><td class="code">ELECENG 299</td><td>Topics in Electrical Engineering</td><td class="credits">1–3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">New material section; section title announced per offering.</td></tr>
+
+                    <!-- Excel date fix: 3-Jan / 4-Jan usually means 1–3 / 1–4 -->
+                    <tr><td class="code">ELECENG 301</td><td>Electrical Circuits &amp; Electronics I</td><td class="credits">1–3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Circuit laws, resistive circuits, AC circuits, and ideal Op-Amps.</td></tr>
+                    <tr><td class="code">ELECENG 305</td><td>Electrical Circuits II</td><td class="credits">1–4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Transformers, transient response, filters, and Fourier analysis.</td></tr>
+
+                    <tr><td class="code">ELECENG 310</td><td>Signals and Systems</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Continuous/discrete time analysis, Fourier and Laplace transforms.</td></tr>
+                    <tr><td class="code">ELECENG 330</td><td>Circuits and Electronics II</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Phasor analysis, non-ideal Op-amps, BJT, and MOSFET amplifiers.</td></tr>
+                    <tr><td class="code">ELECENG 335</td><td>Electronics II</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">CMOS logic gates, differential amplifiers, and frequency response.</td></tr>
+                    <tr><td class="code">ELECENG 340</td><td>Embedded Systems I</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">C/C++ for microcontrollers, digital/analog I/O, and PLC programming.</td></tr>
+
+                    <tr><td class="code">ELECENG 354</td><td>Digital Logic</td><td class="credits">1–3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Number systems, Boolean Algebra, and combinational logic design.</td></tr>
+
+                    <tr><td class="code">ELECENG 361</td><td>Electromagnetic Fields</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Electrostatics, Maxwell&apos;s equations, resistance, and capacitance.</td></tr>
+                    <tr><td class="code">ELECENG 362</td><td>Electromechanical Energy Conv</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Transformers, induction/synchronous machines, and DC motors.</td></tr>
+                    <tr><td class="code">ELECENG 367</td><td>Introduction to Microprocessors</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Assembly language, hardware design, and interfacing peripherals.</td></tr>
+
+                    <tr><td class="code">ELECENG 410/G</td><td>Digital Signal Processing</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">DFT, FFT, sampling, and digital filter design (FIR/IIR).</td></tr>
+                    <tr><td class="code">ELECENG 411/G</td><td>Machine Learning &amp; Applications</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Deep learning and hands-on experience with ML software/libraries.</td></tr>
+                    <tr><td class="code">ELECENG 420/G</td><td>Random Signals and Systems</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Probability, random variables, and stochastic processes in systems.</td></tr>
+                    <tr><td class="code">ELECENG 430/G</td><td>Energy Modeling</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Electrical/thermal energy modeling using specialized software.</td></tr>
+                    <tr><td class="code">ELECENG 436/G</td><td>Intro to Medical Instrumentation</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Biopotential signals, amplifiers, sensors, and electrical safety.</td></tr>
+                    <tr><td class="code">ELECENG 437/G</td><td>Intro to Biomedical Imaging</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">X-ray, CT, MRI, and ultrasonic imaging principles.</td></tr>
+                    <tr><td class="code">ELECENG 439/G</td><td>Intro to Biomedical Optics</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Light-tissue interaction, spectroscopy, and imaging techniques.</td></tr>
+                    <tr><td class="code">ELECENG 465/G</td><td>Broadband Optical Networks</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Multichannel lightwave systems and wavelength-division multiplexing.</td></tr>
+                    <tr><td class="code">ELECENG 471/G</td><td>Electric Power Systems</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Load flow, economic dispatch, fault study, and system protection.</td></tr>
+                    <tr><td class="code">ELECENG 474/G</td><td>Introduction to Control Systems</td><td class="credits">4</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Feedback control design in time and frequency domains.</td></tr>
+                    <tr><td class="code">ELECENG 481/G</td><td>Electronic Materials</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Semiconductor fabrication, band structure, doping, and solar cells.</td></tr>
+
+                    <!-- Topics / variable credit -->
+                    <tr><td class="code">ELECENG 490/G</td><td>Topics in Electrical Engineering</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Recent theoretical and applied topics in EE.</td></tr>
+
+                    <tr><td class="code">ELECENG 574/G</td><td>Intermediate Control Systems</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">State space, digital control, and multivariate systems.</td></tr>
+                    <tr><td class="code">ELECENG 580/G</td><td>Digital Control Systems</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Sampling, Z-transforms, and digital controller design.</td></tr>
+
+                    <tr><td class="code">ELECENG 595</td><td>Capstone Design Project</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Senior design project involving team-based engineering solutions.</td></tr>
+
+                    <tr><td class="code">ELECENG 700</td><td>CEAS Graduate Seminar</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Ethics, communication, and professional development.</td></tr>
+                    <tr><td class="code">ELECENG 890</td><td>Advanced Topics in EE</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Specialized graduate-level research topics.</td></tr>
+
+                    <!-- Thesis credits (Excel serial-date fix) -->
+                    <tr><td class="code">ELECENG 990</td><td>Masters Thesis</td><td class="credits">9–12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Thesis research for Master&apos;s candidates.</td></tr>
+                    <tr><td class="code">ELECENG 998</td><td>Doctoral Thesis</td><td class="credits">12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Dissertation research for PhD candidates.</td></tr>
+                    <tr><td class="code">ELECENG 999</td><td>Advanced Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Specialized study under faculty direction.</td></tr>
+
+                </tbody>
+            </table>
+        </details>
+
+        <!-- 6. MECHANICAL -->
+        <details id="mecheng">
+            <summary>Mechanical Engineering (MECHENG)</summary>
+            <table class="course-table">
+                <thead>
+                    <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description (Summary)</th></tr>
+                </thead>
+                <tbody>
+
+                <tr><td class="code">MECHENG 101</td><td>Computational Tools for Engineers</td><td class="credits">2</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Introduction to spreadsheets and equation solvers for engineering.</td></tr>
+                <tr><td class="code">MECHENG 110</td><td>Engineering Fundamentals I</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Problem-solving, visualization, technical communication, and data analysis.</td></tr>
+                <tr><td class="code">MECHENG 111</td><td>Engineering Fundamentals II</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Experimentation and introduction to engineering design.</td></tr>
+                <tr><td class="code">MECHENG 150</td><td>How Things Work: Understanding Tech</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Explaining everyday technology like automobiles, computers, and radio.</td></tr>
+
+                <tr><td class="code">MECHENG 240</td><td>Intro to Embedded Computing II</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">C programming and algorithm development for industrial computers.</td></tr>
+                <tr><td class="code">MECHENG 270</td><td>Computer Aided Engineering Lab</td><td class="credits">2</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Foundation in mechanical design and analysis using parametric CAE tools.</td></tr>
+                <tr><td class="code">MECHENG 301</td><td>Basic Engineering Thermodynamics</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Energy concepts, 1st and 2nd Laws, properties of gases, and cycles.</td></tr>
+
+                <!-- Variable credit courses (Excel date fix) -->
+                <tr><td class="code">MECHENG 302</td><td>Introduction to System Dynamics</td><td class="credits">1–3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Modeling and analysis of mechanical, electrical, and fluid systems.</td></tr>
+                <tr><td class="code">MECHENG 320</td><td>Introduction to Fluid Mechanics</td><td class="credits">1–3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Basic laws of fluid mechanics and engineering applications.</td></tr>
+
+                <tr><td class="code">MECHENG 321</td><td>Basic Heat Transfer</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Conduction, convection, radiation, and heat exchanger design.</td></tr>
+                <tr><td class="code">MECHENG 323</td><td>Fluid Mechanics Laboratory</td><td class="credits">1</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Experiments in potential flows, gas dynamics, and aerodynamics.</td></tr>
+                <tr><td class="code">MECHENG 324</td><td>Intro to Fluid Mechanics (w/ Lab)</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Comprehensive fluid mechanics including viscous flow and experiments.</td></tr>
+
+                <tr><td class="code">MECHENG 340</td><td>Embedded Systems I</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Microcontroller applications, serial communications, and PLC programming.</td></tr>
+                <tr><td class="code">MECHENG 360</td><td>Mechanical Design I</td><td class="credits">1–3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Kinematic and dynamic analysis of machine members and linkages.</td></tr>
+                <tr><td class="code">MECHENG 364</td><td>Adv Mechanics of Materials &amp; Design</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">3D principal stresses, fatigue failure criteria, and shaft design.</td></tr>
+                <tr><td class="code">MECHENG 366</td><td>Design of Machine Elements</td><td class="credits">4</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Design of fasteners, springs, bearings, and gears under fatigue loads.</td></tr>
+                <tr><td class="code">MECHENG 368</td><td>Design of Machine Elements II</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Static and fatigue failure criteria for welds, springs, and brakes.</td></tr>
+
+                <tr><td class="code">MECHENG 379</td><td>Introduction to Mechatronics</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Electrical circuit analysis and computer-controlled mechanical systems.</td></tr>
+                <tr><td class="code">MECHENG 402</td><td>Thermo-Fluid Engineering</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Analysis of heat exchangers, power generation, and refrigeration.</td></tr>
+
+                <tr><td class="code">MECHENG 405/G</td><td>Product Realization</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Interdisciplinary aspects of the product realization process.</td></tr>
+                <tr><td class="code">MECHENG 411/G</td><td>Heat Transfer</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Advanced conduction, convection, radiation, and phase changes.</td></tr>
+                <tr><td class="code">MECHENG 415/G</td><td>Modern Thermomanufacturing</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Thermal management in welding, CVD, and thermal spraying.</td></tr>
+                <tr><td class="code">MECHENG 420/G</td><td>Intermediate Fluid Mechanics</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Navier-Stokes equations, CFD training, and boundary-layer theory.</td></tr>
+                <tr><td class="code">MECHENG 423/G</td><td>Applied Fluid Mechanics</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Fluid machinery, power transmission, and control systems.</td></tr>
+
+                <tr><td class="code">MECHENG 438</td><td>Mechanical Engineering Experimentation</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Design and execution of complex mechanical experiments.</td></tr>
+
+                <tr><td class="code">MECHENG 460/G</td><td>Nanomaterials &amp; Nanomanufacturing</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Structure and manufacture of nanoparticles and nanocomposites.</td></tr>
+                <tr><td class="code">MECHENG 462/G</td><td>Intermediate Design of Machinery</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Complex loadings, combined stresses, and design against fatigue.</td></tr>
+                <tr><td class="code">MECHENG 463/G</td><td>Introduction to Finite Elements</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Assembly of finite element matrices in solid and fluid mechanics.</td></tr>
+                <tr><td class="code">MECHENG 465/G</td><td>Friction and Wear</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Surface interactions, lubrication, and material wear analysis.</td></tr>
+                <tr><td class="code">MECHENG 466</td><td>Design of Composite Structures</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Manufacturing and failure analysis of fiber reinforced plastics.</td></tr>
+
+                <tr><td class="code">MECHENG 469/G</td><td>Intro to Biomechanical Engineering</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Modeling human motion and stress analysis of bones/joints.</td></tr>
+                <tr><td class="code">MECHENG 473/G</td><td>Applied Dynamics</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Particle systems, rigid body motion, gyroscopes, and navigation.</td></tr>
+                <tr><td class="code">MECHENG 474/G</td><td>Introduction to Control Systems</td><td class="credits">1–4</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Modeling and design of feedback control systems in time/frequency domains.</td></tr>
+                <tr><td class="code">MECHENG 490/G</td><td>Topics in Mechanical Engineering</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Theoretical and applied topics of current interest.</td></tr>
+
+                <tr><td class="code">MECHENG 496</td><td>Senior Design Project</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Capstone engineering project in a simulated industrial environment.</td></tr>
+
+                <tr><td class="code">MECHENG 542</td><td>Intro to Tech Entrepreneurship</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Opportunity identification and planning for new technology ventures.</td></tr>
+                <tr><td class="code">MECHENG 543</td><td>Intro to Tech Mgmt &amp; Innovation</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Planning technology commercialization projects.</td></tr>
+                <tr><td class="code">MECHENG 544/G</td><td>New Product Development</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Cross-functional teams for concept testing and product design.</td></tr>
+
+                <tr><td class="code">MECHENG 572/G</td><td>Reliability Engineering</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Failure rates, life tests, and system reliability estimation.</td></tr>
+                <tr><td class="code">MECHENG 574/G</td><td>Intermediate Control Systems</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">State space methods, digital control, and multivariate systems.</td></tr>
+                <tr><td class="code">MECHENG 584/G</td><td>Biodynamics of Human Motion</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Collecting and interpreting human motion data using Matlab.</td></tr>
+
+                <tr><td class="code">MECHENG 890</td><td>Advanced Topics in ME</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Recent theoretical developments in thermal-fluids and controls.</td></tr>
+                <tr><td class="code">MECHENG 990</td><td>Masters Thesis</td><td class="credits">9–12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Research for the completion of a Master's degree.</td></tr>
+                <tr><td class="code">MECHENG 998</td><td>Doctoral Thesis</td><td class="credits">12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Dissertation research for PhD candidates.</td></tr>
+                <tr><td class="code">MECHENG 999</td><td>Advanced Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Specialized research under faculty supervision.</td></tr>
+
+
+                </tbody>
+            </table>
+        </details>
+
+        <!-- 7. INDUSTRIAL -->
+        <details id="indeng">
+            <summary>Industrial & Manufacturing Engineering (IND ENG)</summary>
+            <table class="course-table">
+                <thead>
+                    <tr><th>Code</th><th>Title</th><th>Cr.</th><th>Level</th><th>Description (Summary)</th></tr>
+                </thead>
+                <tbody>
+
+                <tr><td class="code">IND ENG 111</td><td>Introduction to Engineering</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Problem-solving methods, teamwork, technical communication, and ethics.</td></tr>
+                <tr><td class="code">IND ENG 112</td><td>Computer-Aided Design</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Visualization, engineering drawing, CAD, and group projects.</td></tr>
+                <tr><td class="code">IND ENG 250</td><td>Manufacturing Processes</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Modern production processes, equipment, design factors, and automation.</td></tr>
+                <tr><td class="code">IND ENG 255</td><td>Industrial Applications of AI/ML</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">AI methodologies in manufacturing, logistics, and service sectors.</td></tr>
+                <tr><td class="code">IND ENG 267</td><td>Data Visualization and Analytics</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Data-driven decision making and managing big data (5 Vs).</td></tr>
+                <tr><td class="code">IND ENG 285</td><td>Project Management</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Life cycles, scheduling, budgeting, risk management, and completion.</td></tr>
+                <tr><td class="code">IND ENG 288</td><td>Intro to Spatial Data Science</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Collection and analysis of spatial data via GIS, RS, and GPS.</td></tr>
+
+                <!-- NOTE: you had "3-Jan" in Credits. In HTML, write ranges like "1–3" or "1-3". -->
+                <tr><td class="code">IND ENG 290</td><td>Topics in Systems Design</td><td class="credits">1–3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Selected topics of current interest for freshmen/sophomores.</td></tr>
+                <tr><td class="code">IND ENG 299</td><td>Independent Reading and Work</td><td class="credits">1–3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Individualized credit hours arranged with staff.</td></tr>
+
+                <tr><td class="code">IND ENG 360</td><td>Engineering Economics</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Time value of money, project evaluation, and investment analysis.</td></tr>
+                <tr><td class="code">IND ENG 367</td><td>Engineering Statistics</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Probability, hypothesis testing, regression, and sampling.</td></tr>
+                <tr><td class="code">IND ENG 369</td><td>Intro to Probability &amp; Inference</td><td class="credits">1</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Fundamental concepts of probability and statistics.</td></tr>
+                <tr><td class="code">IND ENG 370</td><td>Operations Analysis</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Contemporary engineer roles in production/service environments.</td></tr>
+                <tr><td class="code">IND ENG 390</td><td>Senior Thesis</td><td class="credits">1–3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Independent research and submission of a written thesis.</td></tr>
+
+                <tr><td class="code">IND ENG 420/G</td><td>Work Standardization &amp; Measure</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Production sequencing, material flow, plant layout, and motion study.</td></tr>
+                <tr><td class="code">IND ENG 455/G</td><td>Applied Mathematical Optimization</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Linear/integer programming and network optimization methods.</td></tr>
+                <tr><td class="code">IND ENG 465/G</td><td>Optimization Under Uncertainty</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Probabilistic modeling in queueing, forecasting, and inventory.</td></tr>
+                <tr><td class="code">IND ENG 475/G</td><td>Computer Simulation</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Discrete-event simulation and random variable generation.</td></tr>
+                <tr><td class="code">IND ENG 540/G</td><td>Foundations of Systems Engineering</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Concepts of systems, life-cycle models, and systems thinking.</td></tr>
+                <tr><td class="code">IND ENG 550/G</td><td>Control of Automated Mfg Systems</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Principles of automation and control for manufacturing.</td></tr>
+                <tr><td class="code">IND ENG 555/G</td><td>Manufacturing Systems Integration</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Integration of software and hardware in industrial systems.</td></tr>
+                <tr><td class="code">IND ENG 571/G</td><td>Quality Assurance</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Process control charts, Six Sigma, and capability assessment.</td></tr>
+                <tr><td class="code">IND ENG 572/G</td><td>Reliability Engineering</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Designing for failure rates, life tests, and system availability.</td></tr>
+                <tr><td class="code">IND ENG 575/G</td><td>Design of Experiments</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Factorial designs, robustness, and response surface methodology.</td></tr>
+                <tr><td class="code">IND ENG 577/G</td><td>Dimensional Measure &amp; Tolerancing</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">GD&amp;T, precision measuring equipment, and SPC devices.</td></tr>
+                <tr><td class="code">IND ENG 580/G</td><td>Ergonomics</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Principles of stress analysis in workplace and physical environment.</td></tr>
+                <tr><td class="code">IND ENG 582/G</td><td>Ergonomic Job Evaluation</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Methods for evaluating risk of back pain and upper extremity injury.</td></tr>
+                <tr><td class="code">IND ENG 583/G</td><td>Facility Layout &amp; Material Handling</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Warehousing design and quantitative models for location.</td></tr>
+                <tr><td class="code">IND ENG 587/G</td><td>Lean Production Systems</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Toyota Production System, waste reduction, and JIT.</td></tr>
+                <tr><td class="code">IND ENG 588/G</td><td>Global Supply Chain Management</td><td class="credits">3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Logistics, procurement, and global distribution strategy.</td></tr>
+                <tr><td class="code">IND ENG 590/G</td><td>Topics in Industrial Engineering</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Advanced topics of current interest.</td></tr>
+
+                <tr><td class="code">IND ENG 595</td><td>Capstone Project</td><td class="credits">3</td><td><span class="badge badge-ug">Undergrad</span></td><td class="desc">Design projects for production/service systems (Senior Design).</td></tr>
+                <tr><td class="code">IND ENG 699/G</td><td>Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-ugg">UG/Grad</span></td><td class="desc">Faculty-supervised independent study.</td></tr>
+
+                <tr><td class="code">IND ENG 700</td><td>CEAS Graduate Seminar</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Ethics, communication, and professional development.</td></tr>
+                <tr><td class="code">IND ENG 715</td><td>Data Acquisition &amp; Visualization</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Techniques for converting big data into information.</td></tr>
+                <tr><td class="code">IND ENG 716</td><td>Engineering Statistical Analysis</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Advanced statistical tools for engineering research.</td></tr>
+                <tr><td class="code">IND ENG 717</td><td>OR in Engineering Management</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Operations research applications in management.</td></tr>
+                <tr><td class="code">IND ENG 741</td><td>Tech for Connected Systems</td><td class="credits">1</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">IoT and foundational tech for smart systems.</td></tr>
+                <tr><td class="code">IND ENG 742</td><td>Cloud for Connected Systems</td><td class="credits">1</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Cloud architecture and data handling for industry.</td></tr>
+                <tr><td class="code">IND ENG 751</td><td>Flexible Manufacturing Systems</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Automation and flexibility in manufacturing cells.</td></tr>
+                <tr><td class="code">IND ENG 765</td><td>Advanced Mathematical Opt.</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Algorithms, math modeling, and optimization theory.</td></tr>
+                <tr><td class="code">IND ENG 777</td><td>Real-time Resource Management</td><td class="credits">3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Scheduling and resource allocation in real-time systems.</td></tr>
+                <tr><td class="code">IND ENG 880</td><td>Industrial Engineering Seminar</td><td class="credits">1</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Research presentations and professional seminars.</td></tr>
+                <tr><td class="code">IND ENG 888</td><td>Candidate for Degree</td><td class="credits">0</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Minimum credit load requirement for graduation.</td></tr>
+                <tr><td class="code">IND ENG 890</td><td>Advanced Topics in IE</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Specialized graduate-level topics.</td></tr>
+                <tr><td class="code">IND ENG 990</td><td>Masters Thesis</td><td class="credits">9–12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Thesis research for Master's students.</td></tr>
+                <tr><td class="code">IND ENG 998</td><td>Doctoral Thesis</td><td class="credits">12</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Dissertation research for PhD candidates.</td></tr>
+                <tr><td class="code">IND ENG 999</td><td>Advanced Independent Study</td><td class="credits">1–3</td><td><span class="badge badge-g">Graduate</span></td><td class="desc">Advanced graduate research under supervision.</td></tr>
+
+                </tbody>
+            </table>
+        </details>
+
+        <footer>
+            <p>© 2025 CEAS International Mapping Project. Data sourced from department catalog images.</p>
+        </footer>
+    </main>
+
+</body>
+</html>

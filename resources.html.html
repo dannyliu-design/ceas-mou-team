@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>International Student Resources | CEAS Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-main: #ffffff;
+      --bg-side: #fbfbfa;
+      --text-main: #37352f;
+      --text-secondary: #757574;
+      --border-color: #edeef0;
+      --notion-blue: #006eb8;
+      --notion-bg-blue: #ebf5fe;
+      --notion-bg-green: #edf3ec;
+      --notion-bg-yellow: #fbf3db;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-stack); background: var(--bg-main); color: var(--text-main); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+
+    /* Navigation */
+    nav {
+      background: var(--bg-side);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 40px;
+      display: flex;
+      gap: 24px;
+      font-size: 0.9rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav a { text-decoration: none; color: var(--text-secondary); font-weight: 500; }
+    nav a.active { color: var(--text-main); font-weight: 600; border-bottom: 2px solid var(--text-main); }
+    nav a:hover { color: var(--text-main); }
+
+    .content-container { max-width: 1000px; margin: 0 auto; padding: 60px 40px; }
+    header { margin-bottom: 40px; }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; }
+    h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; }
+
+    /* Layout */
+    .resource-section { margin-bottom: 50px; }
+    h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    /* Resource Cards */
+    .card {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card:hover {
+      background: #fafafa;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .card-title { font-weight: 600; font-size: 1rem; margin-bottom: 8px; color: var(--text-main); }
+    .card-desc { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px; flex-grow: 1; }
+    .card-link { font-size: 0.8rem; font-weight: 600; color: var(--notion-blue); display: flex; align-items: center; gap: 4px; }
+
+    /* Callouts */
+    .callout {
+      background: var(--bg-side);
+      padding: 16px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      gap: 12px;
+      font-size: 0.9rem;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 600px) {
+      .content-container { padding: 20px; }
+      nav { padding: 12px 20px; gap: 15px; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">🏠 Dashboard</a>
+    <a href="curriculum.html">📚 Curriculum</a>
+    <a href="resources.html" class="active">✨ Student Resources</a>
+  </nav>
+
+  <div class="content-container">
+    <header>
+      <div class="breadcrumb">📁 General / 🌏 Incoming Students</div>
+      <h1>Incoming Student Resources</h1>
+      <p style="color:var(--text-secondary); margin-top: 10px;">A comprehensive directory of academic, administrative, and cultural support services at UWM.</p>
+    </header>
+
+    <div class="callout">
+      <span>💡</span>
+      <div>
+        <strong>Advisor Tip:</strong> Most F-1/J-1 processing steps should be completed at least 3 months prior to the semester start date.
+      </div>
+    </div>
+
+    <!-- 1. Language & Culture -->
+    <section class="resource-section">
+      <h2><span style="background: var(--notion-bg-green); padding: 4px 8px; border-radius: 4px;">🗣️</span> Language & Culture Programs</h2>
+      <div class="grid">
+        <a href="https://uwm.edu/english-language-academy/programs/summer-language-and-culture-program/" target="_blank" class="card">
+          <div class="card-title">Summer Language & Culture PLUS</div>
+          <p class="card-desc">2-week immersive program with a dedicated STEM/Engineering focus track.</p>
+          <div class="card-link">View Program ↗</div>
+        </a>
+        <a href="https://uwm.edu/english-language-academy/programs/english-for-academic-purposes/" target="_blank" class="card">
+          <div class="card-title">English for Academic Purposes (EAP)</div>
+          <p class="card-desc">Credit-bearing English courses designed for dual-admitted international students.</p>
+          <div class="card-link">Course Details ↗</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 2. Administrative & Fees -->
+    <section class="resource-section">
+      <h2><span style="background: var(--notion-bg-yellow); padding: 4px 8px; border-radius: 4px;">💳</span> Administrative & Fees</h2>
+      <div class="grid">
+        <a href="https://uwm.edu/cie/international-admissions/international-student-processing-fee/" target="_blank" class="card">
+          <div class="card-title">Processing Fee ($100)</div>
+          <p class="card-desc">Mandatory processing fee for all new incoming F-1 and J-1 international students.</p>
+          <div class="card-link">Pay Online ↗</div>
+        </a>
+        <a href="https://uwm.edu/cie/services/students/housing/" target="_blank" class="card">
+          <div class="card-title">Housing Options</div>
+          <p class="card-desc">Detailed guide for on-campus dormitories and off-campus apartment hunting.</p>
+          <div class="card-link">Explore Housing ↗</div>
+        </a>
+        <a href="https://uwm.edu/cie/international-admissions/tuition-fees-scholarships/" target="_blank" class="card">
+          <div class="card-title">Tuition, Fees & Scholarships</div>
+          <p class="card-desc">Current cost estimates required for visa funding proof (I-20/DS-2019).</p>
+          <div class="card-link">Financial Info ↗</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 3. Academic Resources -->
+    <section class="resource-section">
+      <h2><span style="background: var(--notion-bg-blue); padding: 4px 8px; border-radius: 4px;">📖</span> Academic Resources</h2>
+      <div class="grid">
+        <a href="https://catalog.uwm.edu/courses/mech-eng/" target="_blank" class="card">
+          <div class="card-title">ME Graduate Course List</div>
+          <p class="card-desc">Current graduate-level Mechanical Engineering course offerings and descriptions.</p>
+          <div class="card-link">Catalog ↗</div>
+        </a>
+        <a href="https://catalog.uwm.edu/course-search/" target="_blank" class="card">
+          <div class="card-title">Schedule of Classes</div>
+          <p class="card-desc">Real-time search to check course frequency, availability, and online status.</p>
+          <div class="card-link">Search Classes ↗</div>
+        </a>
+        <a href="https://uwm.edu/engineering/students/future/international-students/" target="_blank" class="card">
+          <div class="card-title">CEAS International Portal</div>
+          <p class="card-desc">Engineering-specific resources tailored for future international students.</p>
+          <div class="card-link">Portal ↗</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 4. Bridge & Success -->
+    <section class="resource-section">
+      <h2><span style="background: #f5f5f5; padding: 4px 8px; border-radius: 4px;">🌉</span> Bridge & Success Programs</h2>
+      <div class="grid">
+        <a href="https://uwm.edu/first-year-bridge/" target="_blank" class="card">
+          <div class="card-title">First-Year Bridge Program</div>
+          <p class="card-desc">Support system designed to help undergraduate students transition to UWM.</p>
+          <div class="card-link">Learn More ↗</div>
+        </a>
+        <a href="https://uwm.edu/studentsuccess/" target="_blank" class="card">
+          <div class="card-title">Student Success Center</div>
+          <p class="card-desc">Central hub for tutoring, supplemental instruction, and academic advising.</p>
+          <div class="card-link">Get Support ↗</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 5. Additional Programs -->
+    <section class="resource-section">
+      <h2><span style="background: #f5f5f5; padding: 4px 8px; border-radius: 4px;">🌟</span> Additional Programs & Services</h2>
+      <div class="grid">
+        <a href="https://uwm.edu/cie/international-student-orientation/" target="_blank" class="card">
+          <div class="card-title">New Student Orientation</div>
+          <p class="card-desc">Required online and in-person sessions covering immigration rules and campus life.</p>
+          <div class="card-link">View Schedule ↗</div>
+        </a>
+        <a href="https://uwm.edu/cie/international-student-orientation/#pals" target="_blank" class="card">
+          <div class="card-title">Panther International Pals</div>
+          <p class="card-desc">Peer mentoring program connecting new students with current UWM students.</p>
+          <div class="card-link">Sign Up ↗</div>
+        </a>
+        <a href="https://uwm.edu/cie/international-student-and-scholar-services/" target="_blank" class="card">
+          <div class="card-title">ISSS Services</div>
+          <p class="card-desc">Professional advising on F-1/J-1 visas, travel signatures, and employment (OPT/CPT).</p>
+          <div class="card-link">ISSS Website ↗</div>
+        </a>
+        <a href="https://uwm.edu/cie/study-abroad/" target="_blank" class="card">
+          <div class="card-title">Study Abroad & Exchange</div>
+          <p class="card-desc">Information on global academic programs and inbound exchange opportunities.</p>
+          <div class="card-link">Study Abroad ↗</div>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      International Student Support Portal · Te-En (Danny) Liu · CEAS UWM · 2025
+    </footer>
+  </div>
+</body>
+</html>

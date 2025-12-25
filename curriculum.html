@@ -32,28 +32,35 @@
         }
 
         /* Top Navigation */
-        nav.top-nav {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border-color);
-            padding: 0 20px;
-            display: flex;
-            gap: 20px;
-            height: 50px;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        nav.top-nav a { 
-            text-decoration: none; 
-            color: var(--text-secondary); 
-            font-size: 0.85rem; 
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        nav.top-nav a.active { color: var(--text-main); font-weight: 600; }
-        nav.top-nav a:hover { color: var(--notion-blue); }
+/* Top Navigation (shared) */
+nav {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 20px;
+  display: flex;
+  gap: 20px;
+  height: 50px;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+nav a { 
+  text-decoration: none; 
+  color: var(--text-secondary); 
+  font-size: 0.85rem; 
+  font-weight: 500;
+  transition: color 0.2s;
+}
+nav a.active { 
+  color: var(--text-main); 
+  font-weight: 600; 
+}
+nav a:hover { 
+  color: var(--notion-blue); 
+}
+
 
         /* Sidebar Navigation */
         .layout-container {
@@ -758,6 +765,7 @@
 
 </body>
 </html>
+
 
 
 

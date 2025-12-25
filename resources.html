@@ -93,11 +93,24 @@
 </head>
 <body>
 
-  <nav>
-    <a href="index.html">🏠 Dashboard</a>
-    <a href="curriculum.html">📚 Curriculum</a>
-    <a href="resources.html" class="active">✨ Student Resources</a>
-  </nav>
+<div id="nav-placeholder"></div>
+
+<script>
+  fetch("nav.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("nav-placeholder").innerHTML = html;
+
+      // highlight the current page
+      const links = document.querySelectorAll("nav a");
+      links.forEach(link => {
+        if (link.href === window.location.href) {
+          link.classList.add("active");
+        }
+      });
+    });
+</script>
+
 
   <div class="content-container">
     <header>
@@ -224,3 +237,4 @@
   </div>
 </body>
 </html>
+

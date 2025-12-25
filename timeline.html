@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Program Timelines | CEAS Mapping</title>
+    <title>Program Acceleration Visualizer | CEAS Mapping</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         :root {
@@ -12,145 +12,147 @@
             --text-secondary: #757574;
             --border-color: #edeef0;
             --notion-blue: #006eb8;
-            --accent-green: #e2f6d3;
-            --accent-yellow: #fff4ce;
-            --accent-blue: #e1f0ff;
+            --uwm-gold: #ffbd00;
+            --uwm-teal: #007a7a;
+            --std-gray: #d0d0d0;
             --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             --sidebar-width: 260px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        
-        body { 
-            font-family: var(--font-stack); 
-            background: var(--bg-main); 
-            color: var(--text-main); 
-            line-height: 1.5;
-            display: flex;
-            flex-direction: column;
-        }
+        body { font-family: var(--font-stack); background: var(--bg-main); color: var(--text-main); line-height: 1.5; display: flex; flex-direction: column; }
 
-        /* Top Navigation */
-        nav.top-nav {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border-color);
-            padding: 0 20px;
-            display: flex;
-            gap: 20px;
-            height: 50px;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        nav.top-nav a { 
-            text-decoration: none; 
-            color: var(--text-secondary); 
-            font-size: 0.85rem; 
-            font-weight: 500;
-        }
-        nav.top-nav a.active { color: var(--text-main); font-weight: 600; border-bottom: 2px solid var(--text-main); height: 100%; display: flex; align-items: center; }
+        /* Navigation */
+ /* Top Navigation (shared across pages) */
+nav {
+  background: var(--bg-side);
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 40px;
+  display: flex;
+  gap: 24px;
+  font-size: 0.9rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
-        /* Sidebar Navigation */
-        .layout-container {
-            display: flex;
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+nav a {
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
 
+nav a.active {
+  color: var(--text-main);
+  font-weight: 600;
+  border-bottom: 2px solid var(--text-main);
+}
+
+nav a:hover {
+  color: var(--text-main);
+}
+
+
+        /* Sidebar */
         .sidebar {
             width: var(--sidebar-width);
-            height: calc(100vh - 50px);
+            height: calc(100vh - 55px);
             background: var(--bg-side);
             position: sticky;
-            top: 50px;
+            top: 55px;
             padding: 40px 24px;
             border-right: 1px solid var(--border-color);
             overflow-y: auto;
         }
-
         .sidebar h4 { font-size: 0.7rem; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 12px; letter-spacing: 0.08em; }
-        .sidebar a { display: block; padding: 8px 10px; color: var(--text-main); text-decoration: none; font-size: 0.9rem; border-radius: 6px; margin-bottom: 2px; }
+        .sidebar a { display: block; padding: 8px 10px; color: var(--text-main); text-decoration: none; font-size: 0.85rem; border-radius: 6px; margin-bottom: 2px; }
         .sidebar a:hover { background: #efefed; color: var(--notion-blue); }
 
         /* Main Content */
         .main-content { flex: 1; padding: 60px 40px; max-width: calc(100% - var(--sidebar-width)); }
-        header { margin-bottom: 40px; }
-        h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.03em; }
-        .intro-text { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; }
+        header { margin-bottom: 50px; }
+        h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 10px; }
+        .intro-text { color: var(--text-secondary); font-size: 1.1rem; max-width: 800px; }
 
-        /* Summary Card & Tables */
-        .summary-card {
-            background: #f9f9f9;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 40px;
-        }
-        .summary-card h3 { margin-bottom: 15px; font-size: 1.1rem; }
+        /* School Section */
+        .school-section { margin-bottom: 80px; padding-top: 20px; border-top: 1px solid var(--border-color); }
+        .school-name { font-size: 1.8rem; font-weight: 700; margin-bottom: 30px; display: flex; align-items: center; gap: 15px; }
+        .school-name::before { content: "📁"; font-size: 1.2rem; filter: grayscale(1); }
 
-        .table-container { width: 100%; overflow-x: auto; border: 1px solid var(--border-color); border-radius: 8px; background: white; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 600px; }
-        th { text-align: left; padding: 12px; background: #f4f4f4; color: var(--text-secondary); }
-        td { padding: 12px; border-top: 1px solid var(--border-color); }
+        /* Visual Timeline Components */
+        .vis-card { background: white; border: 1px solid var(--border-color); border-radius: 12px; padding: 24px 24px 18px; margin-bottom: 24px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .vis-card h3 { font-size: 1.05rem; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; }
+        .prog-badge { font-size: 0.7rem; padding: 3px 10px; border-radius: 20px; background: #eee; color: #555; }
 
-        /* Timeline Lists */
-        .timeline-box { margin-bottom: 30px; padding: 20px; border-left: 3px solid var(--notion-blue); background: #fcfcfc; border-radius: 0 8px 8px 0; }
-        .timeline-box h3 { font-size: 1rem; color: var(--notion-blue); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .vis-path { position: relative; margin-bottom: 10px; }
+        .vis-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 6px; }
+        .path-label { font-size: 0.8rem; font-weight: 700; color: var(--notion-blue); text-transform: uppercase; }
+        .time-label { font-size: 1rem; font-weight: 700; }
+        .time-label span { font-size: 1.6rem; color: var(--text-main); }
+
+        .bar-container { display: flex; height: 36px; position: relative; border-radius: 6px; overflow: hidden; background: #f0f0f0; }
+        .bar { display: flex; align-items: center; justify-content: center; padding: 0 8px; font-size: 0.7rem; font-weight: 700; color: white; transition: 0.3s; position: relative; text-align: center; }
         
-        .step { display: flex; gap: 15px; margin-bottom: 15px; }
-        .step-num { 
-            min-width: 80px; font-weight: 700; font-size: 0.75rem; color: var(--text-secondary); 
-            text-transform: uppercase; padding-top: 4px; 
-        }
-        .step-content { flex: 1; font-size: 0.95rem; }
-        .step-content strong { display: block; color: var(--text-main); }
-        .step-content p { color: var(--text-secondary); font-size: 0.85rem; }
+        .seg-home { background: #004a87; border-radius: 6px 0 0 6px; }
+        .seg-uwm { background: var(--uwm-teal); border-radius: 0 6px 6px 0; }
+        .seg-std { background: #b8b8b8; color: #fff; border-radius: 6px 0 0 6px; }
+        .seg-std-uwm { background: #757574; border-radius: 0 6px 6px 0; }
 
-        /* Program Specific Badges */
-        .p-badge { padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin-left: 10px; }
-        .b-22 { background: var(--accent-green); color: #2b593f; }
-        .b-11 { background: var(--accent-yellow); color: #815e21; }
-        .b-32 { background: var(--accent-blue); color: #004a87; }
+        .finish-line { position: absolute; right: 0; top: -24px; bottom: -24px; border-right: 2px dashed var(--uwm-teal); z-index: 5; }
+        .finish-text { position: absolute; top: -22px; right: -40px; font-size: 0.7rem; font-weight: 800; color: var(--uwm-teal); text-transform: uppercase; white-space: nowrap; }
 
-        details { margin-bottom: 15px; }
-        summary { cursor: pointer; font-size: 1.4rem; font-weight: 700; padding: 10px 0; list-style: none; display: flex; align-items: center; }
-        summary::before { content: "📁"; margin-right: 12px; filter: grayscale(1); }
+        .axis { display: flex; justify-content: space-between; padding: 14px 0 6px; margin: 6px 0; border-top: 1px solid #eee; position: relative; }
+        .yr-marker { font-size: 0.7rem; color: #bbb; font-weight: 700; text-transform: uppercase; }
 
-        footer { margin-top: 80px; padding: 40px 0; border-top: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.8rem; }
+        .vis-notes { margin-top: 4px; font-size: 0.78rem; color: var(--text-secondary); }
+        .vis-notes ul { margin-top: 4px; padding-left: 18px; }
+        .vis-notes li { margin-bottom: 3px; }
 
-        /* Mobile */
+        /* Responsive Mobile */
         @media (max-width: 900px) {
             .layout-container { flex-direction: column; }
-            .sidebar { position: relative; top: 0; width: 100%; height: auto; padding: 15px 20px; border-right: none; }
+            .sidebar { width: 100%; height: auto; position: relative; top: 0; border-right: none; border-bottom: 1px solid var(--border-color); }
             .sidebar-links { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 10px; }
-            .sidebar a { white-space: nowrap; border: 1px solid var(--border-color); background: white; }
+            .sidebar a { white-space: nowrap; background: white; border: 1px solid var(--border-color); }
             .main-content { max-width: 100%; padding: 30px 20px; }
-            .step { flex-direction: column; gap: 2px; margin-bottom: 20px; }
-            .step-num { min-width: auto; }
+            .bar { font-size: 0.6rem; padding: 0 5px; }
+            .time-label span { font-size: 1.3rem; }
+            .finish-text { right: 0; }
         }
     </style>
 </head>
 <body>
 
-<nav class="top-nav">
-  <a href="index.html">🏠 Project Dashboard</a>
-  <a href="curriculum.html">📚 Curriculum</a>
-  <a href="timeline.html" class="active">⏳ Program Timelines</a>
-</nav>
+<body>
+
+  <div id="nav-placeholder"></div>
+
+  <script>
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+
+        // highlight current page
+        const links = document.querySelectorAll("nav a");
+        links.forEach(link => {
+          if (link.href === window.location.href) {
+            link.classList.add("active");
+          }
+        });
+      });
+  </script>
+
+
 
 <div class="layout-container">
     <aside class="sidebar">
         <h4>University Folders</h4>
         <div class="sidebar-links">
-            <a href="#summary">Visual Summary</a>
-            <a href="#program-matrix">Program Attributes</a>
             <a href="#knu">KNU (Kyungpook)</a>
             <a href="#kongju">Kongju Nat'l</a>
-            <a href="#ksu">Kyungsung (KSU)</a>
+            <a href="#ksu">Kyungsung</a>
             <a href="#uos">Univ of Seoul</a>
             <a href="#cycu">CYCU (Taiwan)</a>
         </div>
@@ -158,531 +160,509 @@
 
     <main class="main-content">
         <header>
-            <h1>Program Timelines</h1>
-            <p class="intro-text">Operational roadmaps and program attributes for 1+1, 2+2, and 3+2 international transfer agreements across CEAS partner schools.</p>
+            <h1>Program Acceleration Visualizer</h1>
+            <p class="intro-text">
+                Visual timelines for 1+1, 2+2, and 3+2 programs at each partner school, showing when students apply, transfer to UWM, and receive Bachelor’s and Master’s degrees.
+            </p>
         </header>
 
-        <!-- Quick Summary Table -->
-        <section id="summary" class="summary-card">
-            <h3>🎯 Quick Visual Summary</h3>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Program</th>
-                            <th>Years @ Home</th>
-                            <th>Years @ UWM</th>
-                            <th>Bachelor Awarded</th>
-                            <th>Master Awarded</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>2+2 (Dual)</strong></td>
-                            <td>2 Years</td>
-                            <td>2 Years</td>
-                            <td>End of Year 4 (dual)</td>
-                            <td>—</td>
-                        </tr>
-                        <tr>
-                            <td><strong>1+1 (Graduate)</strong></td>
-                            <td>4 Years</td>
-                            <td>1 Year</td>
-                            <td>Before UWM</td>
-                            <td>End of Year 5</td>
-                        </tr>
-                        <tr>
-                            <td><strong>3+2 (Accelerated)</strong></td>
-                            <td>3 Years</td>
-                            <td>2 Years</td>
-                            <td>End of Year 4 (during UWM)</td>
-                            <td>End of Year 5</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <!-- 1. KNU -->
+        <section id="knu" class="school-section">
+            <h2 class="school-name">Kyungpook National University (KNU) — Folder 02</h2>
+
+            <!-- 2+2 -->
+            <div class="vis-card">
+                <h3>2+2 Dual Bachelor’s (KNU ↔ UWM) <span class="prog-badge">BS + BS in 4 Years</span></h3>
+                
+                <div class="vis-path">
+                    <div class="vis-header">
+                        <span class="path-label">MOU 2+2 Path</span>
+                        <span class="time-label">Total: <span>4 Years</span></span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar seg-home" style="width: 50%;">KNU: Years 1–2</div>
+                        <div class="bar seg-uwm" style="width: 50%;">UWM: Years 3–4</div>
+                        <div class="finish-line"><span class="finish-text">Dual BS Degrees</span></div>
+                    </div>
+                </div>
+
+                <div class="axis">
+                    <span class="yr-marker">Y1</span><span class="yr-marker">Y2</span>
+                    <span class="yr-marker">Y3</span><span class="yr-marker">Y4</span>
+                </div>
+
+                <div class="vis-notes">
+                    <ul>
+                        <li><strong>Years 1–2 (KNU):</strong> Student follows co-developed plan; completes 4 semesters at KNU with required GPA and English.</li>
+                        <li><strong>Application Point:</strong> After Year 2, the student is considered a <em>third-year undergraduate</em> for 2+2 eligibility and applies via KNU + UWM process.</li>
+                        <li><strong>Years 3–4 (UWM):</strong> Student transfers to UWM CEAS; must complete ≥55% of graduation credits at UWM.</li>
+                        <li><strong>Outcome:</strong> Two Bachelor’s degrees (KNU + UWM), normally within 4 academic years if on schedule.</li>
+                    </ul>
+                </div>
+
+                <div class="vis-path" style="opacity: 0.6; margin-top: 10px;">
+                    <div class="bar-container">
+                        <div class="bar seg-std" style="width: 100%;">Standard Home Bachelor (4 Yrs, 1 Degree)</div>
+                    </div>
+                    <div class="vis-header" style="margin-top:4px;">
+                        <span class="path-label" style="color:#999">Standard Path for Comparison</span>
+                        <span class="time-label" style="font-size:0.85rem">4 Years → 1 BS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1+1 -->
+            <div class="vis-card">
+                <h3>1+1 Dual Master’s (KNU → UWM) <span class="prog-badge">Fast MS</span></h3>
+                
+                <div class="vis-path">
+                    <div class="vis-header">
+                        <span class="path-label">MOU 1+1 Path</span>
+                        <span class="time-label">Total: <span>5 Years</span></span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar seg-home" style="width: 80%;">KNU Bachelor (4 Yrs)</div>
+                        <div class="bar seg-uwm" style="width: 20%;">UWM MS (1 Yr)</div>
+                        <div class="finish-line"><span class="finish-text">MS Awarded</span></div>
+                    </div>
+                </div>
+
+                <div class="axis">
+                    <span class="yr-marker">Y1</span><span class="yr-marker">Y2</span>
+                    <span class="yr-marker">Y3</span><span class="yr-marker">Y4</span>
+                    <span class="yr-marker">Y5</span>
+                </div>
+
+                <div class="vis-notes">
+                    <ul>
+                        <li><strong>Years 1–4 (KNU):</strong> Student completes a full Bachelor’s degree at KNU.</li>
+                        <li><strong>Application:</strong> KNU recommends students; UWM evaluates for graduate admission. GRE and recommendation letters are waived; minimum GPA 2.75/4.0 plus English requirement.</li>
+                        <li><strong>Year 5 (UWM):</strong> Student enrolls in a CEAS MS program (thesis or non-thesis option). Up to 12 graduate credits may transfer where allowed.</li>
+                        <li><strong>Outcome:</strong> UWM Master’s degree earned in 1 year after KNU Bachelor, instead of a standard 2-year MS.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 3+2 -->
+            <div class="vis-card">
+                <h3>3+2 Accelerated Bachelor + Master (KNU ↔ UWM) <span class="prog-badge">1 Year Saved vs Normal BS+MS</span></h3>
+                
+                <div class="vis-path">
+                    <div class="vis-header">
+                        <span class="path-label">MOU 3+2 Path</span>
+                        <span class="time-label">Total: <span>5 Years</span></span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar seg-home" style="width: 60%;">KNU UG (3 Yrs)</div>
+                        <div class="bar seg-uwm" style="width: 40%;">UWM Grad (2 Yrs)</div>
+                        <div class="finish-line"><span class="finish-text">BS + MS</span></div>
+                    </div>
+                </div>
+
+                <div class="axis">
+                    <span class="yr-marker">Y1</span><span class="yr-marker">Y2</span>
+                    <span class="yr-marker">Y3</span><span class="yr-marker">Y4</span>
+                    <span class="yr-marker">Y5</span>
+                </div>
+
+                <div class="vis-notes">
+                    <ul>
+                        <li><strong>Years 1–3 (KNU):</strong> Student completes three years of undergraduate study at KNU and is selected into the 3+2 track.</li>
+                        <li><strong>Year 4 (UWM):</strong> Student begins UWM graduate-level coursework; these credits also count back to KNU. KNU awards the Bachelor’s degree during/after this year based on UWM coursework.</li>
+                        <li><strong>Year 5 (UWM):</strong> Student continues as a full CEAS graduate student. The 3+2 MOUs specify a <em>non-thesis</em> MS option.</li>
+                        <li><strong>Outcome:</strong> KNU BS + UWM MS in 5 total years (vs. 4 + 2 = 6 years along a standard path).</li>
+                    </ul>
+                </div>
+
+                <div class="vis-path" style="opacity: 0.6; margin-top: 10px;">
+                    <div class="bar-container">
+                        <div class="bar seg-std" style="width: 80%;">Standard BS (4 Yrs)</div>
+                        <div class="bar seg-std-uwm" style="width: 40%;">Standard MS (2 Yrs)</div>
+                    </div>
+                    <div class="vis-header" style="margin-top:4px;">
+                        <span class="path-label" style="color:#999">Standard Combined Path</span>
+                        <span class="time-label" style="font-size:0.85rem">Total: 6 Years</span>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Program Attribute Matrix -->
-        <section id="program-matrix" class="summary-card">
-            <h3>📊 Program Attribute Matrix (Shared Template)</h3>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Area</th>
-                            <th>1+1</th>
-                            <th>2+2</th>
-                            <th>3+2</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Degree Type</strong></td>
-                            <td>Master’s</td>
-                            <td>Bachelor’s</td>
-                            <td>Bachelor’s + Master’s</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Entry Level</strong></td>
-                            <td>4th-year UG → MS (after Bachelor at home)</td>
-                            <td>3rd-year UG (after 2 full years completed; preparing to transfer)</td>
-                            <td>4th-year UG (accelerated pathway)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Program Style</strong></td>
-                            <td>Traditional MS at UWM</td>
-                            <td>Transfer UG with dual degree</td>
-                            <td>Accelerated MS with forward-counting credits</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Thesis Option</strong></td>
-                            <td>Thesis or Non-thesis (varies slightly by school)</td>
-                            <td>N/A</td>
-                            <td>Non-thesis only in all MOUs reviewed</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Credit Transfer Rules</strong></td>
-                            <td>Up to 12 graduate credits may transfer (1+1)</td>
-                            <td>≥ 55% of UWM degree credits must be completed at UWM (2+2)</td>
-                            <td>Not emphasized; structure is built as accelerated MS rather than a simple transfer</td>
-                        </tr>
-                        <tr>
-                            <td><strong>GRE / Letters</strong></td>
-                            <td>GRE and recommendation letters waived</td>
-                            <td>Not required (UG admission route)</td>
-                            <td>GRE and recommendation letters waived</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Legal / Admin Template</strong></td>
-                            <td colspan="3">Common legal framework across all schools: same structure for tuition, visa, housing, FERPA, non-discrimination, liability, term, termination, and force majeure. Only program-specific sections differ.</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <!-- 2. Kongju -->
+        <section id="kongju" class="school-section">
+            <h2 class="school-name">Kongju National University — Folder 03</h2>
+            <p style="margin-bottom:16px; color:var(--text-secondary);">
+                Kongju’s 1+1, 2+2, and 3+2 MOUs use the same structure and timing logic as KNU. Only institution names and local administrative details differ.
+            </p>
+
+            <div class="vis-card">
+                <h3>2+2 Dual Bachelor’s (Kongju ↔ UWM) <span class="prog-badge">BS + BS in 4 Years</span></h3>
+                <div class="vis-path">
+                    <div class="vis-header">
+                        <span class="path-label">MOU 2+2 Path</span>
+                        <span class="time-label">Total: <span>4 Years</span></span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar seg-home" style="width: 50%;">Kongju: Years 1–2</div>
+                        <div class="bar seg-uwm" style="width: 50%;">UWM: Years 3–4</div>
+                        <div class="finish-line"><span class="finish-text">Dual BS</span></div>
+                    </div>
+                </div>
+                <div class="axis">
+                    <span class="yr-marker">Y1</span><span class="yr-marker">Y2</span>
+                    <span class="yr-marker">Y3</span><span class="yr-marker">Y4</span>
+                </div>
+                <div class="vis-notes">
+                    <ul>
+                        <li>Same 2+2 logic as KNU: 2 years at Kongju, 2 at UWM, ≥55% credits at UWM, dual Bachelor’s.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="vis-card">
+                <h3>1+1 Dual Master’s (Kongju → UWM) <span class="prog-badge">Fast MS</span></h3>
+                <div class="vis-path">
+                    <div class="vis-header">
+                        <span class="path-label">MOU 1+1 Path</span>
+                        <span class="time-label">Total: <span>5 Years</span></span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar seg-home" style="width: 80%;">Kongju Bachelor (4 Yrs)</div>
+                        <div class="bar seg-uwm" style="width: 20%;">UWM MS (1 Yr)</div>
+                        <div class="finish-line"><span class="finish-text">MS</span></div>
+                    </div>
+                </div>
+                <div class="axis">
+                    <span class="yr-marker">Y1</span><span class="yr-marker">Y2</span>
+                    <span class="yr-marker">Y3</span><span class="yr-marker">Y4</span>
+                    <span class="yr-marker">Y5</span>
+                </div>
+                <div class="vis-notes">
+                    <ul>
+                        <li>Identical 1+1 pattern to KNU: Kongju BS then 1-year MS at UWM, GRE/LOR waived.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="vis-card">
+                <h3>3+2 Accelerated Bachelor + Master (Kongju ↔ UWM) <span class="prog-badge">1 Year Saved</span></h3>
+                <div class="vis-path">
+                    <div class="vis-header">
+                        <span class="path-label">MOU 3+2 Path</span>
+                        <span class="time-label">Total: <span>5 Years</span></span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar seg-home" style="width: 60%;">Kongju UG (3 Yrs)</div>
+                        <div class="bar seg-uwm" style="width: 40%;">UWM MS (2 Yrs)</div>
+                        <div class="finish-line"><span class="finish-text">BS + MS</span></div>
+                    </div>
+                </div>
+                <div class="axis">
+                    <span class="yr-marker">Y1</span><span class="yr-marker">Y2</span>
+                    <span class="yr-marker">Y3</span><span class="yr-marker">Y4</span>
+                    <span class="yr-marker">Y5</span>
+                </div>
+                <div class="vis-notes">
+                    <ul>
+                        <li>Same 3+2 structure as KNU: Bachelor at Kongju during first UWM year, non-thesis MS finished in Year 5.</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
-        <!-- KNU -->
-        <details id="knu" open>
-            <summary>Kyungpook National University (KNU)</summary>
-
-            <div class="timeline-box">
-                <h3>1+1 Dual Master’s Degree <span class="p-badge b-11">1+1</span></h3>
-                <div class="step">
-                    <div class="step-num">Years 1–4</div>
-                    <div class="step-content">
-                        <strong>Complete Bachelor’s at KNU</strong>
-                        <p>Student completes full undergraduate curriculum at KNU and earns a KNU Bachelor’s degree.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">Application</div>
-                    <div class="step-content">
-                        <strong>Apply to UWM MS</strong>
-                        <p>KNU screens candidates; UWM conducts final admission review. GRE and recommendation letters are waived under the MOU.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">Year 5</div>
-                    <div class="step-content">
-                        <strong>Graduate Study at UWM</strong>
-                        <p>Student enrolls full-time in a CEAS master’s program. Up to 12 graduate-level credits (where applicable) may be transferred. Thesis or non-thesis option is allowed, depending on department policy.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">Outcome</div>
-                    <div class="step-content">
-                        <strong>UWM Master’s Degree</strong>
-                        <p>Upon successful completion of the MS curriculum, UWM awards the master’s degree.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="timeline-box">
-                <h3>2+2 Dual Bachelor <span class="p-badge b-22">2+2</span></h3>
-                <div class="step">
-                    <div class="step-num">Years 1–2</div>
-                    <div class="step-content">
-                        <strong>Study at KNU</strong>
-                        <p>Student completes the first two years at KNU following a co-developed study plan. Builds GPA and English proficiency needed for UWM.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">Year 3 Start</div>
-                    <div class="step-content">
-                        <strong>Application to UWM</strong>
-                        <p>Student is considered a “third-year undergraduate” after completing four semesters. KNU does initial screening; UWM makes final admission decision.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">Years 3–4</div>
-                    <div class="step-content">
-                        <strong>Transfer to UWM</strong>
-                        <p>Student transfers to UWM CEAS and must complete at least 55% of required degree credits at UWM. Must maintain overall GPA and major GPA requirements for graduation.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">Graduation</div>
-                    <div class="step-content">
-                        <strong>Dual Bachelor’s Degrees</strong>
-                        <p>Upon meeting both institutions’ requirements, the student receives a Bachelor’s degree from UWM and a Bachelor’s degree from KNU.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="timeline-box">
-                <h3>3+2 Accelerated Bachelor + Master <span class="p-badge b-32">3+2</span></h3>
-                <div class="step">
-                    <div class="step-num">Years 1–3</div>
-                    <div class="step-content">
-                        <strong>Undergraduate Study at KNU</strong>
-                        <p>Student completes the first three years at KNU. Selection to the 3+2 track generally occurs near the end of Year 3.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">Year 4</div>
-                    <div class="step-content">
-                        <strong>Accelerated Year at UWM</strong>
-                        <p>Student comes to UWM, takes graduate-level courses while finishing remaining bachelor requirements. The KNU Bachelor’s is awarded during or at the end of this year based on UWM coursework.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">Year 5</div>
-                    <div class="step-content">
-                        <strong>Full MS Year at UWM</strong>
-                        <p>Student is a full graduate student in CEAS. The 3+2 track is defined as non-thesis only in the MOU.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">Outcome</div>
-                    <div class="step-content">
-                        <strong>Dual Awards</strong>
-                        <p>Student finishes with a KNU Bachelor’s and a UWM Master’s degree.</p>
-                    </div>
-                </div>
-            </div>
-        </details>
-
-        <!-- KONGJU -->
-        <details id="kongju">
-            <summary>Kongju National University</summary>
-            <p style="margin-bottom: 20px; color: var(--text-secondary);">
-                Kongju uses the same legal template and program logic as KNU. Timelines and requirements are structurally identical, with program-specific details mapped onto Kongju’s colleges and departments.
+        <!-- 3. KSU -->
+        <section id="ksu" class="school-section">
+            <h2 class="school-name">Kyungsung University (KSU) — Folder 06</h2>
+            <p style="margin-bottom:16px; color:var(--text-secondary);">
+                KSU’s agreements align with the same template as KNU and Kongju; timing and structure are equivalent.
             </p>
 
-            <div class="timeline-box">
-                <h3>1+1 Dual Master’s Degree <span class="p-badge b-11">1+1</span></h3>
-                <div class="step">
-                    <div class="step-num">Years 1–4</div>
-                    <div class="step-content">
-                        <strong>Complete Bachelor’s at Kongju</strong>
-                        <p>Student finishes a four-year undergraduate program at Kongju and earns a Bachelor’s degree.</p>
+            <div class="vis-card">
+                <h3>2+2 Dual Bachelor’s (KSU ↔ UWM) <span class="prog-badge">BS + BS</span></h3>
+                <div class="vis-path">
+                    <div class="vis-header">
+                        <span class="path-label">MOU 2+2 Path</span>
+                        <span class="time-label">Total: <span>4 Years</span></span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar seg-home" style="width: 50%;">KSU: Years 1–2</div>
+                        <div class="bar seg-uwm" style="width: 50%;">UWM: Years 3–4</div>
+                        <div class="finish-line"><span class="finish-text">Dual BS</span></div>
                     </div>
                 </div>
-                <div class="step">
-                    <div class="step-num">Application</div>
-                    <div class="step-content">
-                        <strong>Admission to UWM MS</strong>
-                        <p>Student is recommended by Kongju; UWM evaluates for admission. GRE and recommendation letters are waived according to the MOU.</p>
-                    </div>
+                <div class="axis">
+                    <span class="yr-marker">Y1</span><span class="yr-marker">Y2</span>
+                    <span class="yr-marker">Y3</span><span class="yr-marker">Y4</span>
                 </div>
-                <div class="step">
-                    <div class="step-num">Year 5</div>
-                    <div class="step-content">
-                        <strong>Graduate Year at UWM</strong>
-                        <p>Student enrolls in a CEAS MS program. Up to 12 graduate-level credits can be transferred where applicable. Thesis or non-thesis option is allowed based on department policy.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="timeline-box">
-                <h3>2+2 Dual Bachelor <span class="p-badge b-22">2+2</span></h3>
-                <div class="step">
-                    <div class="step-num">Years 1–2</div>
-                    <div class="step-content">
-                        <strong>Study at Kongju</strong>
-                        <p>First two years at Kongju under a jointly planned curriculum. Student must meet GPA and English requirements.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">Year 3 Start</div>
-                    <div class="step-content">
-                        <strong>Program Selection & UWM Application</strong>
-                        <p>Student is treated as a third-year undergraduate in terms of standing; files are screened by Kongju and then sent to UWM for final admission.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">Years 3–4</div>
-                    <div class="step-content">
-                        <strong>Transfer to UWM</strong>
-                        <p>Student must complete at least 55% of total degree credits at UWM. Degree requirements at both institutions must be satisfied to receive dual Bachelor’s degrees.</p>
-                    </div>
+                <div class="vis-notes">
+                    <ul>
+                        <li>Admission after 2 years at KSU; ≥55% of degree credits completed at UWM; dual Bachelor’s conferred.</li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="timeline-box">
-                <h3>3+2 Accelerated Bachelor + Master <span class="p-badge b-32">3+2</span></h3>
-                <div class="step">
-                    <div class="step-num">Years 1–3</div>
-                    <div class="step-content">
-                        <strong>Undergraduate Study at Kongju</strong>
-                        <p>Student completes three years at Kongju and is then nominated for the 3+2 accelerated MS track.</p>
+            <div class="vis-card">
+                <h3>1+1 Dual Master’s (KSU → UWM) <span class="prog-badge">Fast MS</span></h3>
+                <div class="vis-path">
+                    <div class="vis-header">
+                        <span class="path-label">MOU 1+1 Path</span>
+                        <span class="time-label">Total: <span>5 Years</span></span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar seg-home" style="width: 80%;">KSU Bachelor (4 Yrs)</div>
+                        <div class="bar seg-uwm" style="width: 20%;">UWM MS (1 Yr)</div>
+                        <div class="finish-line"><span class="finish-text">MS</span></div>
                     </div>
                 </div>
-                <div class="step">
-                    <div class="step-num">Year 4</div>
-                    <div class="step-content">
-                        <strong>Joint UG/Grad Year at UWM</strong>
-                        <p>Student takes UWM graduate-level courses which also count back toward the Kongju Bachelor’s degree. Bachelor’s is conferred by Kongju during or after this year.</p>
-                    </div>
+                <div class="axis">
+                    <span class="yr-marker">Y1</span><span class="yr-marker">Y2</span>
+                    <span class="yr-marker">Y3</span><span class="yr-marker">Y4</span>
+                    <span class="yr-marker">Y5</span>
                 </div>
-                <div class="step">
-                    <div class="step-num">Year 5</div>
-                    <div class="step-content">
-                        <strong>MS Completion at UWM</strong>
-                        <p>Student is fully in UWM’s MS program and must follow the non-thesis option specified in the MOU.</p>
-                    </div>
+                <div class="vis-notes">
+                    <ul>
+                        <li>Same 1+1 logic as other Korean partners: KSU BS → 1-year MS at UWM with GRE/LOR waived.</li>
+                    </ul>
                 </div>
             </div>
-        </details>
 
-        <!-- KSU -->
-        <details id="ksu">
-            <summary>Kyungsung University (KSU)</summary>
-            <p style="margin-bottom: 20px; color: var(--text-secondary);">
-                Kyungsung’s MOUs mirror the same structure and timing as KNU and Kongju. Only institution names and local administrative details differ.
+            <div class="vis-card">
+                <h3>3+2 Accelerated Bachelor + Master (KSU ↔ UWM) <span class="prog-badge">1 Year Saved</span></h3>
+                <div class="vis-path">
+                    <div class="vis-header">
+                        <span class="path-label">MOU 3+2 Path</span>
+                        <span class="time-label">Total: <span>5 Years</span></span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar seg-home" style="width: 60%;">KSU UG (3 Yrs)</div>
+                        <div class="bar seg-uwm" style="width: 40%;">UWM MS (2 Yrs)</div>
+                        <div class="finish-line"><span class="finish-text">BS + MS</span></div>
+                    </div>
+                </div>
+                <div class="axis">
+                    <span class="yr-marker">Y1</span><span class="yr-marker">Y2</span>
+                    <span class="yr-marker">Y3</span><span class="yr-marker">Y4</span>
+                    <span class="yr-marker">Y5</span>
+                </div>
+                <div class="vis-notes">
+                    <ul>
+                        <li>Student selected after 3 years at KSU, takes UWM grad courses in Year 4 that count back to KSU BS, finishes non-thesis MS in Year 5.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. UOS -->
+        <section id="uos" class="school-section">
+            <h2 class="school-name">University of Seoul (UOS) — Folder 09</h2>
+            <p style="margin-bottom:16px; color:var(--text-secondary);">
+                UOS has original and “revised by UOS (2025JUL31)” versions. Revisions clarify college names and entry levels but keep the same overall timelines.
             </p>
 
-            <div class="timeline-box">
-                <h3>1+1 Dual Master’s Degree <span class="p-badge b-11">1+1</span></h3>
-                <div class="step">
-                    <div class="step-num">Years 1–4</div>
-                    <div class="step-content">
-                        <strong>KSU Undergraduate Program</strong>
-                        <p>Student completes a four-year bachelor’s program at KSU and earns the KSU degree.</p>
+            <div class="vis-card">
+                <h3>1+1 Dual Master’s (UOS → UWM) <span class="prog-badge">Clarified Entry Level</span></h3>
+                <div class="vis-path">
+                    <div class="vis-header">
+                        <span class="path-label">MOU 1+1 Path (Revised)</span>
+                        <span class="time-label">Total: <span>5 Years</span></span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar seg-home" style="width: 80%;">UOS Bachelor (4 Yrs)</div>
+                        <div class="bar seg-uwm" style="width: 20%;">UWM MS (1 Yr)</div>
+                        <div class="finish-line"><span class="finish-text">MS Awarded</span></div>
                     </div>
                 </div>
-                <div class="step">
-                    <div class="step-num">Year 5</div>
-                    <div class="step-content">
-                        <strong>MS at UWM</strong>
-                        <p>Student attends UWM for one academic year as a full-time MS student in CEAS. 12 graduate credits may be transferred where allowed; thesis or non-thesis is possible.</p>
-                    </div>
+                <div class="axis">
+                    <span class="yr-marker">Y1</span><span class="yr-marker">Y2</span>
+                    <span class="yr-marker">Y3</span><span class="yr-marker">Y4</span>
+                    <span class="yr-marker">Y5</span>
                 </div>
-            </div>
-
-            <div class="timeline-box">
-                <h3>2+2 Dual Bachelor <span class="p-badge b-22">2+2</span></h3>
-                <div class="step">
-                    <div class="step-num">Years 1–2</div>
-                    <div class="step-content">
-                        <strong>First Two Years at KSU</strong>
-                        <p>Student follows a co-developed plan, completing foundational courses and preparing for transfer.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">Year 3 Start</div>
-                    <div class="step-content">
-                        <strong>Third-Year Eligibility & Application</strong>
-                        <p>After four semesters, student is classified as a third-year undergraduate for the purpose of 2+2 program admission to UWM.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">Years 3–4</div>
-                    <div class="step-content">
-                        <strong>Study at UWM</strong>
-                        <p>Student completes remaining requirements at UWM, ensuring ≥ 55% of degree credits are earned at UWM to receive the UWM Bachelor’s degree.</p>
-                    </div>
+                <div class="vis-notes">
+                    <ul>
+                        <li>Revised file clarifies that eligible students come from the <strong>College of Engineering</strong> and may be described as first-year graduate students on UOS side.</li>
+                        <li>UWM still treats them as incoming MS students with GRE and recommendation letters waived.</li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="timeline-box">
-                <h3>3+2 Accelerated Bachelor + Master <span class="p-badge b-32">3+2</span></h3>
-                <div class="step">
-                    <div class="step-num">Years 1–3</div>
-                    <div class="step-content">
-                        <strong>Undergraduate Study at KSU</strong>
-                        <p>Student completes three years at KSU, then is recommended to the accelerated 3+2 track.</p>
+            <div class="vis-card">
+                <h3>2+2 Dual Bachelor’s (UOS ↔ UWM) <span class="prog-badge">Clarified College</span></h3>
+                <div class="vis-path">
+                    <div class="vis-header">
+                        <span class="path-label">MOU 2+2 Path (Revised)</span>
+                        <span class="time-label">Total: <span>4 Years</span></span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar seg-home" style="width: 50%;">UOS: Years 1–2</div>
+                        <div class="bar seg-uwm" style="width: 50%;">UWM: Years 3–4</div>
+                        <div class="finish-line"><span class="finish-text">Dual BS</span></div>
                     </div>
                 </div>
-                <div class="step">
-                    <div class="step-num">Year 4</div>
-                    <div class="step-content">
-                        <strong>Transition Year at UWM</strong>
-                        <p>Student begins UWM coursework that satisfies both KSU Bachelor’s requirements and UWM MS prerequisites. KSU confers its Bachelor’s degree based on this work.</p>
-                    </div>
+                <div class="axis">
+                    <span class="yr-marker">Y1</span><span class="yr-marker">Y2</span>
+                    <span class="yr-marker">Y3</span><span class="yr-marker">Y4</span>
                 </div>
-                <div class="step">
-                    <div class="step-num">Year 5</div>
-                    <div class="step-content">
-                        <strong>Non-Thesis MS at UWM</strong>
-                        <p>Student completes the non-thesis MS degree at UWM following CEAS graduate policies.</p>
-                    </div>
+                <div class="vis-notes">
+                    <ul>
+                        <li>Revisions explicitly state the <strong>College of Engineering</strong> at UOS, but timeline remains 2+2: two years at UOS, two at UWM, ≥55% of credits at UWM.</li>
+                    </ul>
                 </div>
             </div>
-        </details>
 
-        <!-- UOS -->
-        <details id="uos">
-            <summary>University of Seoul (UOS)</summary>
-            <p style="margin-bottom: 20px; color: var(--text-secondary);">
-                UOS has original and revised MOUs (2025JUL31). The revisions refine wording (e.g., specifying College of Engineering and clarifying entry level) but do not change the core timelines and program logic.
+            <div class="vis-card">
+                <h3>3+2 Accelerated Bachelor + Master (UOS ↔ UWM) <span class="prog-badge">Clarified Accelerated Track</span></h3>
+                <div class="vis-path">
+                    <div class="vis-header">
+                        <span class="path-label">MOU 3+2 Path (Revised)</span>
+                        <span class="time-label">Total: <span>5 Years</span></span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar seg-home" style="width: 60%;">UOS UG (3 Yrs)</div>
+                        <div class="bar seg-uwm" style="width: 40%;">UWM MS (2 Yrs)</div>
+                        <div class="finish-line"><span class="finish-text">BS + MS</span></div>
+                    </div>
+                </div>
+                <div class="axis">
+                    <span class="yr-marker">Y1</span><span class="yr-marker">Y2</span>
+                    <span class="yr-marker">Y3</span><span class="yr-marker">Y4</span>
+                    <span class="yr-marker">Y5</span>
+                </div>
+                <div class="vis-notes">
+                    <ul>
+                        <li>Revised version makes the accelerated MS path clearer (college, entry description), but keeps the pattern: BS awarded around Year 4 based on UWM coursework, MS by end of Year 5.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. CYCU -->
+        <section id="cycu" class="school-section">
+            <h2 class="school-name">CYCU (Chung Yuan Christian University) — Folder 21</h2>
+            <p style="margin-bottom:16px; color:var(--text-secondary);">
+                CYCU has separate 1+1, 2+2, and 3+2 MOUs plus a redesigned, department-specific 3+2 agreement created after visiting UWM.
             </p>
 
-            <div class="timeline-box">
-                <h3>1+1 Dual Master’s Degree <span class="p-badge b-11">1+1</span></h3>
-                <div class="step">
-                    <div class="step-num">Years 1–4</div>
-                    <div class="step-content">
-                        <strong>UOS Bachelor Completion</strong>
-                        <p>Student completes a four-year Bachelor’s program at UOS. The revised MOU clarifies that eligible students come from the College of Engineering and may be classified as first-year graduate students on the UOS side.</p>
+            <div class="vis-card">
+                <h3>2+2 Dual Bachelor’s (CYCU ↔ UWM) <span class="prog-badge">BS + BS</span></h3>
+                <div class="vis-path">
+                    <div class="vis-header">
+                        <span class="path-label">MOU 2+2 Path</span>
+                        <span class="time-label">Total: <span>4 Years</span></span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar seg-home" style="width: 50%;">CYCU: Years 1–2</div>
+                        <div class="bar seg-uwm" style="width: 50%;">UWM: Years 3–4</div>
+                        <div class="finish-line"><span class="finish-text">Dual BS</span></div>
                     </div>
                 </div>
-                <div class="step">
-                    <div class="step-num">Year 5</div>
-                    <div class="step-content">
-                        <strong>MS at UWM (Non-Thesis or Thesis)</strong>
-                        <p>Student studies at UWM for one academic year in CEAS. GRE and letters are waived under the agreement. Upon completion, UWM awards the Master’s degree.</p>
-                    </div>
+                <div class="axis">
+                    <span class="yr-marker">Y1</span><span class="yr-marker">Y2</span>
+                    <span class="yr-marker">Y3</span><span class="yr-marker">Y4</span>
                 </div>
-            </div>
-
-            <div class="timeline-box">
-                <h3>2+2 Dual Bachelor <span class="p-badge b-22">2+2</span></h3>
-                <div class="step">
-                    <div class="step-num">Years 1–2</div>
-                    <div class="step-content">
-                        <strong>Undergraduate at UOS</strong>
-                        <p>Student studies for two years in the College of Engineering at UOS under a jointly planned curriculum.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">Year 3 Start</div>
-                    <div class="step-content">
-                        <strong>Selection & Application</strong>
-                        <p>After completing four semesters, student is treated as a third-year undergraduate and may be nominated for the 2+2 program. UOS pre-screens; UWM makes the final choice.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">Years 3–4</div>
-                    <div class="step-content">
-                        <strong>Transfer to UWM</strong>
-                        <p>Student transfers to UWM and must complete at least 55% of degree credits at UWM. At the end, the student may receive Bachelor’s degrees from both UOS and UWM, subject to local graduation rules.</p>
-                    </div>
+                <div class="vis-notes">
+                    <ul>
+                        <li>After four semesters at CYCU, students are treated as third-year undergraduates and can be nominated to UWM.</li>
+                        <li>Must meet GPA ≥ 2.75/4.0 and English proficiency; ≥55% of required credits completed at UWM.</li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="timeline-box">
-                <h3>3+2 Accelerated Bachelor + Master <span class="p-badge b-32">3+2</span></h3>
-                <div class="step">
-                    <div class="step-num">Years 1–3</div>
-                    <div class="step-content">
-                        <strong>Undergraduate at UOS</strong>
-                        <p>Student completes three years at UOS in engineering, then is nominated to the accelerated MS track specified in the MOU.</p>
+            <div class="vis-card">
+                <h3>1+1 Master’s (CYCU ↔ UWM) <span class="prog-badge">Dual or Linked MS</span></h3>
+                <div class="vis-path">
+                    <div class="vis-header">
+                        <span class="path-label">MOU 1+1 Path</span>
+                        <span class="time-label">Total: <span>5+ Years*</span></span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar seg-home" style="width: 80%;">CYCU Master / Senior UG (4 Yrs)</div>
+                        <div class="bar seg-uwm" style="width: 20%;">UWM MS (1 Yr)</div>
+                        <div class="finish-line"><span class="finish-text">MS at UWM</span></div>
                     </div>
                 </div>
-                <div class="step">
-                    <div class="step-num">Year 4</div>
-                    <div class="step-content">
-                        <strong>First UWM Year</strong>
-                        <p>Student begins UWM graduate coursework while progressing toward the UOS Bachelor’s degree. The revised MOU further clarifies college affiliation and degree timing.</p>
-                    </div>
+                <div class="axis">
+                    <span class="yr-marker">Y1</span><span class="yr-marker">Y2</span>
+                    <span class="yr-marker">Y3</span><span class="yr-marker">Y4</span>
+                    <span class="yr-marker">Y5</span>
                 </div>
-                <div class="step">
-                    <div class="step-num">Year 5</div>
-                    <div class="step-content">
-                        <strong>UWM MS Completion</strong>
-                        <p>Student continues as a non-thesis MS student at UWM and completes remaining requirements for the master’s degree.</p>
-                    </div>
-                </div>
-            </div>
-        </details>
-
-        <!-- CYCU -->
-        <details id="cycu">
-            <summary>CYCU (Chung Yuan Christian University, Taiwan)</summary>
-            <p style="margin-bottom: 20px; color: var(--text-secondary);">
-                CYCU has separate 1+1, 2+2, and 3+2 MOUs, plus a redesigned 3+2 agreement created after a visit to UWM. The redesigned 3+2 is department-specific and more operational.
-            </p>
-
-            <div class="timeline-box">
-                <h3>1+1 Dual Master’s Degree <span class="p-badge b-11">1+1</span></h3>
-                <div class="step">
-                    <div class="step-num">Years 1–4</div>
-                    <div class="step-content">
-                        <strong>CYCU Master’s or Senior Study</strong>
-                        <p>CYCU students may already be in a master’s program or senior undergraduate standing, depending on local implementation. They build eligibility to apply to UWM under the 1+1 track.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">Application</div>
-                    <div class="step-content">
-                        <strong>Apply to UWM MS</strong>
-                        <p>Credential evaluation is done by UWM. Minimum GPA 2.75/4.0 and English proficiency are required. GRE and recommendation letters are waived; up to 12 graduate credits may transfer.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-num">UWM Year</div>
-                    <div class="step-content">
-                        <strong>Graduate Study at UWM</strong>
-                        <p>Student completes a coordinated MS curriculum in CEAS. CYCU may count some UWM credits back toward its own master’s degree under local CYCU rules.</p>
-                    </div>
+                <div class="vis-notes">
+                    <ul>
+                        <li>Students may come from CYCU Master’s or senior undergraduate standing depending on implementation.</li>
+                        <li>UWM evaluates credentials; GRE and recommendation letters are waived; up to 12 grad credits may transfer.</li>
+                        <li>*Total time at CYCU depends on whether they pursue a full CYCU master’s or only partial studies before UWM.</li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="timeline-box">
-                <h3>2+2 Dual Bachelor <span class="p-badge b-22">2+2</span></h3>
-                <div class="step">
-                    <div class="step-num">Years 1–2</div>
-                    <div class="step-content">
-                        <strong>Undergraduate Study at CYCU</strong>
-                        <p>Student completes two years at CYCU according to a co-developed study plan approved by both CYCU and UWM.</p>
+            <div class="vis-card">
+                <h3>Original 3+2 Template (CYCU ↔ UWM) <span class="prog-badge">Generic Version</span></h3>
+                <div class="vis-path">
+                    <div class="vis-header">
+                        <span class="path-label">Original 3+2 Path</span>
+                        <span class="time-label">Total: <span>5 Years</span></span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar seg-home" style="width: 60%;">CYCU UG (3 Yrs)</div>
+                        <div class="bar seg-uwm" style="width: 40%;">UWM MS (2 Yrs)</div>
+                        <div class="finish-line"><span class="finish-text">BS + MS</span></div>
                     </div>
                 </div>
-                <div class="step">
-                    <div class="step-num">Year 3 Start</div>
-                    <div class="step-content">
-                        <strong>Eligibility & Application</strong>
-                        <p>After four semesters, student becomes a third-year undergraduate and can be nominated to UWM. UWM reviews admission with a minimum GPA of 2.75/4.0 and English requirement.</p>
-                    </div>
+                <div class="axis">
+                    <span class="yr-marker">Y1</span><span class="yr-marker">Y2</span>
+                    <span class="yr-marker">Y3</span><span class="yr-marker">Y4</span>
+                    <span class="yr-marker">Y5</span>
                 </div>
-                <div class="step">
-                    <div class="step-num">Years 3–4</div>
-                    <div class="step-content">
-                        <strong>Study at UWM</strong>
-                        <p>Student must complete no less than 55% of required graduation credits at UWM. Dual Bachelor’s degrees are granted when both CYCU and UWM requirements are satisfied.</p>
-                    </div>
+                <div class="vis-notes">
+                    <ul>
+                        <li>College-level, generic wording with placeholders (e.g., “College of ______”).</li>
+                        <li>Structure matches the standard 3+2 pattern used for Korean partners.</li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="timeline-box" style="border-left-color: #f0932b;">
-                <h3>Redesigned 3+2 Timeline (Post-Visit MOU) <span class="p-badge b-32">3+2</span></h3>
-                <div class="step">
-                    <div class="step-num">Years 1–3</div>
-                    <div class="step-content">
-                        <strong>CYCU Departmental Major Study</strong>
-                        <p>Student studies in a specific department (e.g., Industrial & Systems Engineering in the College of Electrical Engineering and Computer Science). The new MOU is department-specific rather than generic.</p>
+            <div class="vis-card">
+                <h3>Redesigned 3+2 (After Visiting UWM) <span class="prog-badge">Dept-Specific & Operational</span></h3>
+                
+                <div class="vis-path">
+                    <div class="vis-header">
+                        <span class="path-label">New CYCU 3+2 Path</span>
+                        <span class="time-label">Total: <span>5 Years</span></span>
+                    </div>
+                    <div class="bar-container" style="background:#e1f0ff;">
+                        <div class="bar seg-home" style="width: 60%; background:#002d5a;">CYCU Dept Major (3 Yrs)</div>
+                        <div class="bar seg-uwm" style="width: 20%; background:#00a8a8; border-right:2px solid #fff;">Joint Yr @ UWM (BS Awarded)</div>
+                        <div class="bar seg-uwm" style="width: 20%; background:#007a7a;">UWM MS Yr</div>
+                        <div class="finish-line"><span class="finish-text">BS + MS + PhD Bridge</span></div>
                     </div>
                 </div>
-                <div class="step">
-                    <div class="step-num">Year 4</div>
-                    <div class="step-content">
-                        <strong>UWM (Mixed UG/Grad Status)</strong>
-                        <p>Student comes to UWM and takes graduate courses that also count back to CYCU. The CYCU Bachelor’s degree is awarded during this UWM year based on coursework completed at UWM.</p>
-                    </div>
+
+                <div class="axis">
+                    <span class="yr-marker">Y1</span><span class="yr-marker">Y2</span>
+                    <span class="yr-marker">Y3</span><span class="yr-marker">Y4</span>
+                    <span class="yr-marker">Y5</span>
                 </div>
-                <div class="step">
-                    <div class="step-num">Year 5</div>
-                    <div class="step-content">
-                        <strong>UWM MS Completion</strong>
-                        <p>Student continues as a non-thesis MS student at UWM. The redesigned MOU explicitly supports bridging into a PhD program with additional scholarship options described in the appendices.</p>
+                <div class="vis-notes">
+                    <ul>
+                        <li><strong>Years 1–3:</strong> Study in a specific department (e.g., Industrial & Systems Engineering in CECS) at CYCU.</li>
+                        <li><strong>Year 4:</strong> Student is at UWM; courses count both toward CYCU Bachelor’s and UWM MS prerequisites. CYCU confers its BS during this year based on UWM coursework.</li>
+                        <li><strong>Year 5:</strong> Student completes non-thesis MS at UWM; appendices describe bridge-to-PhD funding (e.g., CEAS scholarships, RA/TA eligibility).</li>
+                        <li>This version is substantially different from the template: it is department-specific, fully operational, and explicitly aligned with UWM CEAS practice.</li>
+                    </ul>
+                </div>
+
+                <div class="vis-path" style="opacity:0.6; margin-top:10px;">
+                    <div class="bar-container">
+                        <div class="bar seg-std" style="width: 80%;">Standard UG (4 Yrs)</div>
+                        <div class="bar seg-std-uwm" style="width: 40%;">Standard Grad (2 Yrs)</div>
+                    </div>
+                    <div class="vis-header" style="margin-top:4px;">
+                        <span class="path-label" style="color:#999">Standard 4 + 2 Comparison (6 Years)</span>
                     </div>
                 </div>
             </div>
-        </details>
+        </section>
 
         <footer>
-            <p>© 2025 CEAS International Mapping Project. Data derived from official MOU documentation.</p>
+            <p>© 2025 CEAS International Mapping Project. Timelines derived from MOU text for Folders 02, 03, 06, 09, and 21.</p>
         </footer>
     </main>
 </div>
